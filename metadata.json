@@ -1,0 +1,6 @@
+{
+  "name": "学源汇 K12",
+  "description": "学源汇是一个面向K12阶段的优质教学与学习资源共享平台，提供教案、练习、真题、课件等丰富资源的在线浏览、搜索、下载和上传分享，并配有功能完善的管理员后台系统。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
