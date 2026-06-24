@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: xueyuanhui-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/xueyuanhui?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: root
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印SQL
+
+server:
+  port: 8080
+
+qiniu:
+  access-key: zfc9y0LL6rUe5b6dz0c43yOx7cKOxtHn4bON76rz
+  secret-key: yoJYJH0AnqKFFcSVJUONwA-OSxwP4jzFvAlefJwL
+  bucket: your-bucket-name # 请替换为实际的Bucket名称
+  domain: http://your-domain.com/ # 请替换为实际的绑定的域名，注意以斜杠结尾
+
+jwt:
+  secret: XueYuanHuiSuperSecretKeyForJwtAuthenticationWhichShouldBeLongEnough2024
+  expiration: 604800000 # 7天

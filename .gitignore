@@ -6,3 +6,14 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Uniapp
+unpackage/
+.hbuilderx/
+
+# Spring Boot
+target/
+*.class
+.idea/
+*.iml
+.vscode/
