@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+    <rect width="400" height="300" fill="#fef2f2"/>
+    <text x="50%" y="50%" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="48" font-weight="bold" fill="#dc2626" dominant-baseline="middle" text-anchor="middle">语文</text>
+    <path d="M150 200 L250 200 M180 220 L220 220" stroke="#dc2626" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  </svg>
