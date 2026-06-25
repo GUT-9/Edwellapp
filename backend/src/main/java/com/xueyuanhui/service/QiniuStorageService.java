@@ -31,7 +31,7 @@ public class QiniuStorageService {
             UploadManager uploadManager = new UploadManager(cfg);
             Auth auth = Auth.create(accessKey, secretKey);
             String upToken = auth.uploadToken(bucket);
-            
+
             String originalFilename = file.getOriginalFilename();
             String ext = "";
             if (originalFilename != null && originalFilename.contains(".")) {
@@ -40,9 +40,10 @@ public class QiniuStorageService {
             String key = UUID.randomUUID().toString().replace("-", "") + ext;
 
             uploadManager.put(file.getInputStream(), key, upToken, null, null);
+
             return domain + key;
         } catch (Exception e) {
-            throw new RuntimeException("文件上传失败", e);
+            throw new RuntimeException("七牛云文件上传失败", e);
         }
     }
 }

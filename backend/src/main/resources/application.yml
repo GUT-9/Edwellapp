@@ -22,8 +22,8 @@ server:
 qiniu:
   access-key: zfc9y0LL6rUe5b6dz0c43yOx7cKOxtHn4bON76rz
   secret-key: yoJYJH0AnqKFFcSVJUONwA-OSxwP4jzFvAlefJwL
-  bucket: your-bucket-name # 请替换为实际的Bucket名称
-  domain: http://your-domain.com/ # 请替换为实际的绑定的域名，注意以斜杠结尾
+  bucket: edwell-k12
+  domain: http://oss.gut9.cn/
 
 jwt:
   secret: XueYuanHuiSuperSecretKeyForJwtAuthenticationWhichShouldBeLongEnough2024

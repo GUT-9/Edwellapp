@@ -35,6 +35,18 @@ public class JwtInterceptor implements HandlerInterceptor {
             }
         }
 
+        // Allow public access to GET for resources, stages, grades, subjects
+        String method = request.getMethod();
+        String uri = request.getRequestURI();
+        if ("GET".equals(method) && (
+            uri.startsWith("/api/resources") ||
+            uri.startsWith("/api/stages") ||
+            uri.startsWith("/api/grades") ||
+            uri.startsWith("/api/subjects")
+        )) {
+            return true;
+        }
+
         response.setContentType("application/json;charset=utf-8");
         Result<Object> result = Result.error(401, "Unauthorized");
         response.getWriter().write(new ObjectMapper().writeValueAsString(result));

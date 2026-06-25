@@ -2,26 +2,30 @@
   <view class="flex-1 flex flex-col bg-slate-50 min-h-screen pb-20">
     <!-- Search and Filter Bar -->
     <view class="bg-white border-b border-slate-100 px-4 py-3 flex flex-row items-center justify-between gap-3 sticky top-0 z-20">
-      <view class="flex-1 flex flex-row items-center bg-slate-100 rounded-lg px-3 py-2 border border-slate-200/50">
-        <text class="text-slate-400 mr-2 text-base">🔍</text>
+      <view :class="['flex-1 flex flex-row items-center bg-slate-100 rounded-lg px-3 py-2 border transition-all duration-200', isFocused ? 'border-[#00685f] bg-white shadow-sm ring-light' : 'border-slate-200/50']">
+        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4=" class="text-slate-400 mr-2 shrink-0" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
         <input 
           type="text" 
           v-model="searchQuery" 
+          @focus="isFocused = true"
+          @blur="isFocused = false"
           placeholder="搜索资源、教案、试卷..." 
           class="flex-1 bg-transparent font-sans text-xs text-slate-700 outline-none"
         />
-        <text v-if="searchQuery" @click="searchQuery = ''" class="text-slate-400 font-sans text-xs font-bold px-1">✕</text>
+        <view v-if="searchQuery" @click="searchQuery = ''" class="text-slate-400 font-sans text-xs font-bold px-1 cursor-pointer">
+          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxsaW5lIHgxPSIxOCIgeTE9IjYiIHgyPSI2IiB5Mj0iMTgiPjwvbGluZT48bGluZSB4MT0iNiIgeTE9IjYiIHgyPSIxOCIgeTI9IjE4Ij48L2xpbmU+PC9zdmc+" class="text-slate-400" style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
+        </view>
       </view>
 
       <view 
         @click="isFilterOpen = true"
-        :class="['flex flex-row items-center justify-center gap-1 font-sans text-xs font-semibold px-4 py-2.5 rounded-lg border shadow-sm transition-all', 
-          isAnyFilterActive ? 'bg-teal-50 text-teal-600 border-teal-200' : 'bg-white text-slate-700 border-slate-200'
+        :class="['flex flex-row items-center justify-center gap-1 font-sans text-xs font-semibold px-4 py-2.5 rounded-lg border shadow-sm transition-all cursor-pointer', 
+          isAnyFilterActive ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/20' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
         ]"
       >
-        <text class="mr-0.5">⚙️</text>
+        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMjEiIHkxPSI0IiB4Mj0iMTQiIHkyPSI0Ij48L2xpbmU+PGxpbmUgeDE9IjEwIiB5MT0iNCIgeDI9IjMiIHkyPSI0Ij48L2xpbmU+PGxpbmUgeDE9IjIxIiB5MT0iMTIiIHgyPSIxMiIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjgiIHkxPSIxMiIgeDI9IjMiIHkyPSIxMiI+PC9saW5lPjxsaW5lIHgxPSIyMSIgeTE9IjIwIiB4Mj0iMTYiIHkyPSIyMCI+PC9saW5lPjxsaW5lIHgxPSIxMiIgeTE9IjIwIiB4Mj0iMyIgeTI9IjIwIj48L2xpbmU+PGxpbmUgeDE9IjE0IiB5MT0iMiIgeDI9IjE0IiB5Mj0iNiI+PC9saW5lPjxsaW5lIHgxPSI4IiB5MT0iMTAiIHgyPSI4IiB5Mj0iMTQiPjwvbGluZT48bGluZSB4MT0iMTYiIHkxPSIxOCIgeDI9IjE2IiB5Mj0iMjIiPjwvbGluZT48L3N2Zz4="  style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
         <text>筛选</text>
-        <view v-if="isAnyFilterActive" class="w-2 h-2 rounded-full bg-teal-600 ml-1"></view>
+        <view v-if="isAnyFilterActive" class="w-2 h-2 rounded-full bg-[#00685f] ml-1"></view>
       </view>
     </view>
 
@@ -31,8 +35,8 @@
         v-for="cat in categories" 
         :key="cat"
         @click="activeCategory = cat"
-        :class="['inline-block shrink-0 font-sans text-xs font-semibold px-4 py-1.5 rounded-full mr-2 border transition-all',
-          activeCategory === cat ? 'bg-teal-600 text-white border-teal-600 shadow-sm' : 'bg-slate-100 text-slate-600 border-slate-200/50'
+        :class="['inline-block shrink-0 font-sans text-xs font-semibold px-4 py-1.5 rounded-full mr-2 border transition-all cursor-pointer',
+          activeCategory === cat ? 'bg-[#00685f] text-white border-[#00685f] shadow-sm' : 'bg-slate-100 text-slate-600 border-slate-200/50 hover:bg-slate-200/50'
         ]"
       >
         {{ cat }}
@@ -42,7 +46,7 @@
     <!-- Header info -->
     <view class="px-4 py-3 flex flex-row justify-between items-center bg-white/40">
       <view class="flex flex-row items-center gap-1">
-        <text class="font-sans text-sm font-bold text-slate-800">
+        <text class="font-display text-[15px] font-bold text-slate-800">
           {{ activeCategory === '全部' ? '最新资源' : activeCategory }}
         </text>
         <text class="text-xs text-slate-400 ml-1">({{ filteredResources.length }} 个)</text>
@@ -50,26 +54,29 @@
 
       <view 
         @click="sortBy = sortBy === 'time' ? 'downloads' : 'time'"
-        class="flex flex-row items-center text-slate-500 font-sans text-xs font-medium"
+        class="flex flex-row items-center text-slate-500 font-sans text-xs font-medium gap-1 hover:text-[#00685f] transition-colors cursor-pointer"
       >
         <text>{{ sortBy === 'time' ? '最新发布' : '下载量高' }}</text>
-        <text class="ml-0.5">⇅</text>
+        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Im0yMSAxNi00IDQtNC00Ij48L3BhdGg+PHBhdGggZD0iTTE3IDIwVjQiPjwvcGF0aD48cGF0aCBkPSJtMyA4IDQtNCA0IDQiPjwvcGF0aD48cGF0aCBkPSJNNyA0djE2Ij48L3BhdGg+PC9zdmc+" class="text-slate-400" style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
       </view>
     </view>
 
     <!-- Active Tags Row -->
     <view v-if="isAnyFilterActive" class="px-4 pb-2 flex flex-row flex-wrap gap-1.5 items-center">
-      <text class="text-[10px] font-semibold text-slate-400 mr-1">已筛:</text>
-      <text v-if="appliedStage !== 'all'" class="bg-teal-50 text-teal-600 text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
+      <text class="text-[10px] font-semibold text-slate-400 mr-1 uppercase tracking-wider">已筛:</text>
+      <text v-if="appliedStage !== 'all'" class="bg-[#00685f]/10 text-[#00685f] text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
         {{ STAGES.find(s => s.id === appliedStage)?.name }}
       </text>
-      <text v-if="appliedGrade !== 'all'" class="bg-teal-50 text-teal-600 text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
+      <text v-if="appliedGrade !== 'all'" class="bg-[#00685f]/10 text-[#00685f] text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
         {{ appliedGrade }}
       </text>
-      <text v-if="appliedSubject !== 'all'" class="bg-teal-50 text-teal-600 text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
+      <text v-if="appliedSubject !== 'all'" class="bg-[#00685f]/10 text-[#00685f] text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
         {{ appliedSubject }}
       </text>
-      <text @click="handleClearAllFilters" class="text-teal-600 text-[11px] font-semibold underline ml-1">重置</text>
+      <view @click="handleClearAllFilters" class="text-[#00685f] hover:text-[#008378] text-[11px] font-semibold ml-1 underline flex flex-row items-center gap-0.5 cursor-pointer">
+        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4=" class="text-[#00685f]" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+        <text>重置</text>
+      </view>
     </view>
 
     <!-- Main Resource Grid -->
@@ -78,27 +85,46 @@
         v-for="res in filteredResources" 
         :key="res.id"
         @click="navigateToDetail(res.id)"
-        class="bg-white rounded-2xl border border-slate-200/50 overflow-hidden shadow-sm flex flex-col"
+        class="group bg-white rounded-xl overflow-hidden border border-slate-200/60 flex flex-col cursor-pointer hover:border-[#00685f]/40 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300"
       >
         <view class="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
-          <image :src="res.coverUrl" mode="aspectFill" class="w-full h-full" />
-          <view class="absolute bottom-2 left-2 z-10">
-            <text class="bg-slate-900/60 backdrop-blur-md text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+          <image :src="res.coverUrl" mode="aspectFill" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <view class="absolute top-2 right-2 z-10">
+            <text class="bg-slate-900/80 backdrop-blur-sm text-white text-[9px] font-display font-bold px-1.5 py-0.5 rounded tracking-wider uppercase">
               {{ res.fileType }}
             </text>
           </view>
+          <view class="absolute bottom-2 left-2 z-10">
+            <text class="bg-white/90 backdrop-blur-sm text-[9px] px-1.5 py-0.5 rounded-full font-medium text-[#00685f] shadow-xs">
+              {{ res.points === 0 ? '免费' : `${res.points} 积分` }}
+            </text>
+          </view>
         </view>
-        <view class="p-3 flex-1 flex flex-col gap-1.5">
-          <text class="font-sans text-xs font-bold text-slate-800 line-clamp-2 leading-relaxed h-8">
+        <view class="p-3 flex-1 flex flex-col gap-2">
+          <text class="font-sans text-xs font-semibold text-slate-800 line-clamp-2 leading-snug transition-colors duration-200 group-hover:text-[#00685f] h-[32px]">
             {{ res.title }}
           </text>
-          <view class="flex flex-row justify-between items-center mt-1">
-            <text class="text-[10px] font-sans text-slate-400 font-semibold">
-              {{ res.grade }} • {{ res.subject }}
+          
+          <view class="flex flex-row flex-wrap gap-1 mt-auto pt-1">
+            <text :class="['font-sans text-[9px] px-2 py-0.5 rounded-full font-medium border', getSubjectClass(res.subject)]">
+              {{ res.subject }}
             </text>
-            <text class="font-sans text-[11px] font-bold text-amber-500">
-              {{ res.points }} 积分
+            <text class="bg-slate-100 text-slate-600 font-sans text-[9px] px-2 py-0.5 rounded-full font-medium">
+              {{ res.grade }}
             </text>
+          </view>
+
+          <view class="flex flex-row justify-between items-center mt-2 border-t border-slate-100 pt-2 text-[10px] text-slate-500">
+            <view class="flex flex-row items-center gap-2">
+              <view class="flex flex-row items-center gap-0.5 text-amber-500 font-bold">
+                <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmNTllMGIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiAxNS4wOSA4LjI2IDIyIDkuMjcgMTcgMTQuMTQgMTguMTggMjEuMDIgMTIgMTcuNzcgNS44MiAyMS4wMiA3IDE0LjE0IDIgOS4yNyA4LjkxIDguMjYgMTIgMiI+PC9wb2x5Z29uPjwvc3ZnPg==" class="fill-current text-amber-500" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+                <text>{{ (res.rating || 5.0).toFixed(1) }}</text>
+              </view>
+              <view class="flex flex-row items-center gap-0.5 text-slate-400">
+                <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMSAxNXY0YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0ydi00Ij48L3BhdGg+PHBvbHlsaW5lIHBvaW50cz0iNyAxMCAxMiAxNSAxNyAxMCI+PC9wb2x5bGluZT48bGluZSB4MT0iMTIiIHkxPSIxNSIgeDI9IjEyIiB5Mj0iMyI+PC9saW5lPjwvc3ZnPg==" class="text-slate-400" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+                <text>{{ res.downloads >= 1000 ? `${(res.downloads / 1000).toFixed(1)}k` : res.downloads }}</text>
+              </view>
+            </view>
           </view>
         </view>
       </view>
@@ -106,14 +132,16 @@
 
     <!-- Empty State -->
     <view v-else class="flex flex-col items-center justify-center py-20 px-6 text-center">
-      <text class="text-4xl text-slate-300 mb-2">📂</text>
-      <text class="font-sans text-sm font-bold text-slate-700 mb-1">暂无相关资源</text>
+      <view class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4=" class="text-slate-400" style="width: 40px; height: 40px; flex-shrink: 0;" mode="aspectFit" />
+      </view>
+      <text class="font-display text-base font-bold text-slate-700 mb-1">暂无相关资源</text>
       <text class="font-sans text-xs text-slate-400 max-w-xs leading-relaxed">
         尝试调整筛选条件或重新搜索，探索更多K12精选备课资料。
       </text>
       <button 
         @click="handleClearAllFilters"
-        class="mt-6 font-sans text-xs font-semibold text-white bg-teal-600 px-6 py-2.5 rounded-lg active:scale-95 border-none"
+        class="mt-6 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 hover:bg-[#00685f]/20 px-6 py-2.5 rounded-lg active:scale-95 border-none transition-colors cursor-pointer"
       >
         重置所有条件
       </button>
@@ -128,20 +156,25 @@
       <view class="relative w-80 max-w-full bg-white h-full shadow-2xl flex flex-col z-[101]">
         <!-- Header -->
         <view class="flex flex-row justify-between items-center px-6 py-4 border-b border-slate-100 shrink-0">
-          <text class="font-sans text-sm font-bold text-slate-800">资源筛选</text>
-          <text @click="isFilterOpen = false" class="text-slate-400 font-sans text-sm font-bold px-2">✕</text>
+          <text class="font-display text-base font-bold text-slate-800">资源筛选</text>
+          <view @click="isFilterOpen = false" class="p-1 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMTgiIHkxPSI2IiB4Mj0iNiIgeTI9IjE4Ij48L2xpbmU+PGxpbmUgeDE9IjYiIHkxPSI2IiB4Mj0iMTgiIHkyPSIxOCI+PC9saW5lPjwvc3ZnPg=="  style="width: 20px; height: 20px; flex-shrink: 0;" mode="aspectFit" />
+          </view>
         </view>
 
         <!-- Scrollable Options Content -->
-        <scroll-view scroll-y class="flex-1 p-6 space-y-6 overflow-y-auto">
+        <scroll-view scroll-y class="flex-1 p-6 space-y-6 overflow-y-auto no-scrollbar">
           <!-- Stage Section -->
           <view class="space-y-3 mb-6">
-            <text class="block font-sans text-xs font-bold text-slate-500 mb-2">🎓 学段选择</text>
+            <view class="flex flex-row items-center gap-1.5 text-[#00685f] font-sans text-xs font-semibold">
+              <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjEuNDIgMTAuOTIyYTEgMSAwIDAgMC0uMDE5LTEuODM4TDEyLjgzIDUuMThhMiAyIDAgMCAwLTEuNjYgMEwyLjYgOS4wOGExIDEgMCAwIDAgMCAxLjgzMmw4LjU3IDMuOTA4YTIgMiAwIDAgMCAxLjY2IDB6Ij48L3BhdGg+PHBhdGggZD0iTTYgMTJ2NWMwIDIgMiAzIDYgM3M2LTEgNi0zdi01Ij48L3BhdGg+PC9zdmc+" class="text-[#00685f]" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+              <text>学段选择</text>
+            </view>
             <view class="grid grid-cols-3 gap-2">
               <view 
                 @click="tempStage = 'all'"
                 :class="['py-2 rounded-full font-sans text-xs font-medium border text-center transition-all cursor-pointer',
-                  tempStage === 'all' ? 'bg-teal-50 text-teal-600 border-teal-300 font-bold' : 'text-slate-600 border-slate-200'
+                  tempStage === 'all' ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/30 font-bold' : 'text-slate-600 border-slate-200 hover:bg-slate-50'
                 ]"
               >
                 全部
@@ -151,7 +184,7 @@
                 :key="stage.id"
                 @click="tempStage = stage.id"
                 :class="['py-2 rounded-full font-sans text-xs font-medium border text-center transition-all cursor-pointer',
-                  tempStage === stage.id ? 'bg-teal-50 text-teal-600 border-teal-300 font-bold' : 'text-slate-600 border-slate-200'
+                  tempStage === stage.id ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/30 font-bold' : 'text-slate-600 border-slate-200 hover:bg-slate-50'
                 ]"
               >
                 {{ stage.name }}
@@ -161,12 +194,15 @@
 
           <!-- Grade Section (Cascading) -->
           <view class="space-y-3 mb-6">
-            <text class="block font-sans text-xs font-bold text-slate-500 mb-2">📖 年级选择</text>
+            <view class="flex flex-row items-center gap-1.5 text-[#00685f] font-sans text-xs font-semibold">
+              <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtMTIgMy0xMCA1TDEyIDEzbDEwLTUtMTAtNVoiPjwvcGF0aD48cGF0aCBkPSJtMiAxNyAxMCA1IDEwLTUiPjwvcGF0aD48cGF0aCBkPSJtMiAxMiAxMCA1IDEwLTUiPjwvcGF0aD48L3N2Zz4=" class="text-[#00685f]" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+              <text>年级选择</text>
+            </view>
             <view class="grid grid-cols-3 gap-2">
               <view 
                 @click="tempGrade = 'all'"
                 :class="['py-2 rounded-lg font-sans text-xs font-medium border text-center transition-all cursor-pointer',
-                  tempGrade === 'all' ? 'bg-teal-50 text-teal-600 border-teal-300 font-bold' : 'text-slate-600 border-slate-200'
+                  tempGrade === 'all' ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/30 font-bold' : 'text-slate-600 border-slate-200 hover:bg-slate-50'
                 ]"
               >
                 全部
@@ -176,7 +212,7 @@
                 :key="grade"
                 @click="tempGrade = grade"
                 :class="['py-2 rounded-lg font-sans text-xs font-medium border text-center transition-all cursor-pointer',
-                  tempGrade === grade ? 'bg-teal-50 text-teal-600 border-teal-300 font-bold' : 'text-slate-600 border-slate-200'
+                  tempGrade === grade ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/30 font-bold' : 'text-slate-600 border-slate-200 hover:bg-slate-50'
                 ]"
               >
                 {{ grade }}
@@ -186,12 +222,15 @@
 
           <!-- Subject Section (Cascading) -->
           <view class="space-y-3 mb-6">
-            <text class="block font-sans text-xs font-bold text-slate-500 mb-2">📚 学科分类</text>
+            <view class="flex flex-row items-center gap-1.5 text-[#00685f] font-sans text-xs font-semibold">
+              <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAzaDZhNCA0IDAgMCAxIDQgNHYxNGEzIDMgMCAwIDAtMy0zSDJ6Ij48L3BhdGg+PHBhdGggZD0iTTIyIDNoLTZhNCA0IDAgMCAwLTQgNHYxNGEzIDMgMCAwIDEgMy0zaDd6Ij48L3BhdGg+PC9zdmc+" class="text-[#00685f]" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+              <text>学科分类</text>
+            </view>
             <view class="grid grid-cols-3 gap-2">
               <view 
                 @click="tempSubject = 'all'"
                 :class="['py-2 rounded-lg font-sans text-xs font-medium border text-center transition-all cursor-pointer',
-                  tempSubject === 'all' ? 'bg-teal-50 text-teal-600 border-teal-300 font-bold' : 'text-slate-600 border-slate-200'
+                  tempSubject === 'all' ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/30 font-bold' : 'text-slate-600 border-slate-200 hover:bg-slate-50'
                 ]"
               >
                 全部
@@ -201,7 +240,7 @@
                 :key="subject"
                 @click="tempSubject = subject"
                 :class="['py-2 rounded-lg font-sans text-xs font-medium border text-center transition-all cursor-pointer',
-                  tempSubject === subject ? 'bg-teal-50 text-teal-600 border-teal-300 font-bold' : 'text-slate-600 border-slate-200'
+                  tempSubject === subject ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/30 font-bold' : 'text-slate-600 border-slate-200 hover:bg-slate-50'
                 ]"
               >
                 {{ subject }}
@@ -214,13 +253,14 @@
         <view class="p-4 border-t border-slate-100 bg-slate-50 flex flex-row gap-3 shrink-0 pb-safe">
           <view 
             @click="handleResetFilters"
-            class="flex-1 flex flex-row items-center justify-center gap-1 text-slate-600 font-sans text-xs font-semibold py-3 rounded-xl border border-slate-200 bg-white cursor-pointer"
+            class="flex-1 flex flex-row items-center justify-center gap-1 text-slate-600 font-sans text-xs font-semibold py-3 rounded-xl border border-slate-200 bg-white cursor-pointer hover:text-slate-800"
           >
-            <text>↺ 重置</text>
+            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4=" class="text-slate-500" style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
+            <text>重置</text>
           </view>
           <view 
             @click="handleApplyFilters"
-            class="flex-[2] bg-teal-600 text-white font-sans text-xs font-semibold py-3 rounded-xl shadow-md text-center cursor-pointer"
+            class="flex-[2] bg-[#00685f] hover:bg-[#008378] text-white font-sans text-xs font-semibold py-3 rounded-xl shadow-md text-center cursor-pointer active:scale-[0.98] transition-all"
           >
             查看结果 ({{ tempFilteredCount }}个)
           </view>
@@ -232,31 +272,20 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import { onShow } from '@dcloudio/uni-app'
+import { request } from '../../utils/request'
 
-// K12 Configuration Data
-const STAGES = [
-  { id: 'primary', name: '小学' },
-  { id: 'middle', name: '初中' },
-  { id: 'high', name: '高中' }
-]
-
-const STAGE_GRADES = {
-  primary: ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'],
-  middle: ['七年级', '八年级', '九年级'],
-  high: ['高一', '高二', '高三']
-}
-
-const STAGE_SUBJECTS = {
-  primary: ['语文', '数学', '英语', '道德与法治', '科学', '音乐', '美术', '体育'],
-  middle: ['语文', '数学', '英语', '道德与法治', '历史', '地理', '物理', '化学', '生物'],
-  high: ['语文', '数学', '英语', '思想政治', '历史', '地理', '物理', '化学', '生物', '信息技术']
-}
+// Config Data from API
+const STAGES = ref([])
+const STAGE_GRADES = ref({})
+const STAGE_SUBJECTS = ref({})
 
 // State
 const searchQuery = ref('')
 const activeCategory = ref('全部')
 const sortBy = ref('time')
 const isFilterOpen = ref(false)
+const isFocused = ref(false)
 
 const tempStage = ref('all')
 const tempGrade = ref('all')
@@ -268,40 +297,99 @@ const appliedSubject = ref('all')
 
 const categories = ['全部', '教案设计', '同步练习', '期末真题', '课件PPT']
 
-// Mock Resources matching the sharing platform
-const resources = ref([
-  { id: '5', title: '人教版初二物理下册：牛顿第一定律精讲与实验演示', stage: 'middle', grade: '八年级', subject: '物理', fileType: 'MP4', downloads: 856, points: 10, coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBFwOCedqHslA64b14zmZqhE3c53Pgtb86yFXkwFalWvDk3psrJwDZnwZdSEpi82ZQuhdnT6qCfjBdIiw1ZmfIyLhuzl4e4ki66dgnVB5Zn8k4fGbaUsqYwBdjGQV32JCUh01FVQDRjYskbuuHC0-U-Dusg3_6dfruKrxNhcI6pSJCLF3BsSoXV4gY9XXuPUwQmYHhMvPXhxbhw_B_KSWO0DOL0LRrk9hxj5ka9tFmzKrpiMmEr26ArX9mU7vVT2A0A50DMfkaM5N8', status: 'approved', createdAt: '2026-06-10' },
-  { id: '1', title: '高二数学必修一：函数与导数综合复习讲义', stage: 'high', grade: '高二', subject: '数学', fileType: 'PDF', downloads: 1250, points: 10, coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBnCVnZJFfEd7kHFNFAKDRq7NqizLHP4KgWUfGh3hhhkx-D3025gFcxNLzrSw5axM8Q1XtF3PBHeJVUdwE3XzklMmhLRq1aKxzoA-oqTcUcVnxKy9IW232d1UodH4X_eEfVkCl13pKxbX_YmnI_87xl_g4TLUOS3OOFs6nNoHDDD1v2o7vO7OrmevoJrSHzRlvTPO61pDMlXQtCZc_YhoA87sXDpU3QEDmm5kRFoC6xoARYvWweFUC7oZYGxJoY1oOQcpp4G2vbbxs', status: 'approved', createdAt: '2026-06-22' },
-  { id: '2', title: '初三物理：光学折射与反射核心考点精讲视频', stage: 'middle', grade: '九年级', subject: '物理', fileType: 'MP4', downloads: 856, points: 5, coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCFacj-jlLiGGC9_AtxHAuR9CHASm6YtZnryASj9wcf42xBmh9OjFnizNKAjafu8XgCGVmerH_jLBew2fpBXuH_vWUclW6Rykvx5wz-JZR25tPMW5zRz31U76yDMj4f2NE8GWks97Sx7RtG-I7hMJnZYKhhN-TlwUvH2tkfNHb_Jr3oi3e6_Ht2XnydNZjb1U5qJGlH_FFkmScExk4AP7s5D_FyLg7oFq1s0AV79u4WQTuNhRk5ODwvp1O9FMaFQcOwTLXY6vCj8c', status: 'approved', createdAt: '2026-06-21' },
-  { id: '3', title: '高一英语必修二单元词汇测试卷及答案详解', stage: 'high', grade: '高一', subject: '英语', fileType: 'DOCX', downloads: 2100, points: 0, coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBv5GLpxrA2pBCvxofL03mMT1jaErwDDK3_UbG8Ok96gl3oeyDi5VKTydm4aEd6EX_SVr_M6WX-0_6mMCSnFwxoLlIWp3yfLxv10w1OBf6sdN9rgRaHK2coptlU-sGb7XJ_JKssFARF8kmJ3cnWVZU11Np_OU3Ob8TZ9SGNYc-hvXVo1rCXoborSAVGGSbXs9gJKvrVEJtVOGhPb3s3j2UIzXKZ6wG4HcICgT70Cvzp4UMfqA5m5nhltMY7nvz_MdlNXj6KAQAVQtQ', status: 'approved', createdAt: '2026-06-18' },
-  { id: '4', title: '初二语文：文言文阅读理解答题技巧课件', stage: 'middle', grade: '八年级', subject: '语文', fileType: 'PPT', downloads: 432, points: 10, coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCcRA1W8Myvm56kfeWAYmaIYyzN15wgJ8H5QM38Rcii0N_04orXxF3s0ETw93v74cnIvIjanxIoO3_U9CxNZpyRORG7lBhoAmEg_WaGwa8U65bEBGYaaie0TPcPkI5g7QIGBGoPLmM8VVVnsfHNMYLTbCHLjG53mOvdDMmaYskB11rX9OMHHnMUs32glk2HuAHj1hB5zNHEL2zDY5z_WpWMQKlV_1vT7NAfshpZwqkisdVcD4mSoVac9KIUUEFZuAm6LYS-5eB03lY', status: 'approved', createdAt: '2026-06-15' }
-])
+const resources = ref([])
 
-// Helper functions for dynamic linking/cascading
+onShow(() => {
+  const initStage = uni.getStorageSync('search_init_stage')
+  if (initStage) {
+    appliedStage.value = initStage
+    tempStage.value = initStage
+    uni.removeStorageSync('search_init_stage')
+  }
+
+  const initSubject = uni.getStorageSync('search_init_subject')
+  if (initSubject) {
+    appliedSubject.value = initSubject
+    tempSubject.value = initSubject
+    uni.removeStorageSync('search_init_subject')
+  }
+
+  const initQuery = uni.getStorageSync('search_init_query')
+  if (initQuery) {
+    searchQuery.value = initQuery
+    uni.removeStorageSync('search_init_query')
+  }
+
+  fetchConfig()
+  fetchResources()
+})
+
+const fetchConfig = async () => {
+  try {
+    const [stagesRes, gradesRes, subjectsRes] = await Promise.all([
+      request({ url: '/stages', method: 'GET' }),
+      request({ url: '/grades', method: 'GET' }),
+      request({ url: '/subjects', method: 'GET' })
+    ])
+    STAGES.value = stagesRes.data || []
+    STAGE_GRADES.value = gradesRes.data || {}
+    STAGE_SUBJECTS.value = subjectsRes.data || {}
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const fetchResources = async () => {
+  try {
+    const res = await request({
+      url: '/resources',
+      method: 'GET'
+    })
+    resources.value = res.data
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const getGradeStage = (grade) => {
-  if (STAGE_GRADES.primary.includes(grade)) return 'primary'
-  if (STAGE_GRADES.middle.includes(grade)) return 'middle'
-  if (STAGE_GRADES.high.includes(grade)) return 'high'
+  for (const [stageId, gradesArr] of Object.entries(STAGE_GRADES.value)) {
+    if (gradesArr.includes(grade)) return stageId
+  }
   return undefined
 }
 
 const getSubjectStages = (subj) => {
   const list = []
-  if (STAGE_SUBJECTS.primary.includes(subj)) list.push('primary')
-  if (STAGE_SUBJECTS.middle.includes(subj)) list.push('middle')
-  if (STAGE_SUBJECTS.high.includes(subj)) list.push('high')
+  for (const [stageId, subjectsArr] of Object.entries(STAGE_SUBJECTS.value)) {
+    if (subjectsArr.includes(subj)) list.push(stageId)
+  }
   return list
 }
 
-// Watching state for smart cascading
+const getSubjectClass = (subject) => {
+  const mapping = {
+    '语文': 'bg-red-100 text-red-600 border-red-300',
+    '数学': 'bg-blue-100 text-blue-600 border-blue-300',
+    '英语': 'bg-purple-100 text-purple-600 border-purple-300',
+    '物理': 'bg-green-100 text-green-600 border-green-300',
+    '化学': 'bg-slate-100 text-slate-600 border-slate-300',
+    '生物': 'bg-emerald-100 text-emerald-700 border-emerald-300',
+    '科学': 'bg-teal-100 text-teal-600 border-teal-300',
+    '历史': 'bg-amber-100 text-amber-700 border-amber-300',
+    '地理': 'bg-cyan-100 text-cyan-600 border-cyan-300',
+    '道德与法治': 'bg-rose-100 text-rose-600 border-rose-300'
+  }
+  return mapping[subject] || 'bg-slate-50 text-slate-500 border-slate-200'
+}
+
 watch(tempStage, (newStage) => {
-  if (newStage !== 'all') {
-    const grades = STAGE_GRADES[newStage]
+  if (newStage !== 'all' && STAGE_GRADES.value[newStage]) {
+    const grades = STAGE_GRADES.value[newStage]
     if (!grades.includes(tempGrade.value) && tempGrade.value !== 'all') {
       tempGrade.value = 'all'
     }
-    const subjects = STAGE_SUBJECTS[newStage]
-    if (!subjects.includes(tempSubject.value) && tempSubject.value !== 'all') {
+    const subjects = STAGE_SUBJECTS.value[newStage]
+    if (subjects && !subjects.includes(tempSubject.value) && tempSubject.value !== 'all') {
       tempSubject.value = 'all'
     }
   }
@@ -311,7 +399,7 @@ watch(tempGrade, (newGrade) => {
   if (newGrade !== 'all' && tempSubject.value !== 'all') {
     const gradeStage = getGradeStage(newGrade)
     if (gradeStage) {
-      const allowedSubjs = STAGE_SUBJECTS[gradeStage]
+      const allowedSubjs = STAGE_SUBJECTS.value[gradeStage] || []
       if (!allowedSubjs.includes(tempSubject.value)) {
         tempSubject.value = 'all'
       }
@@ -329,13 +417,14 @@ watch(tempSubject, (newSubj) => {
   }
 })
 
-// Dynamic computations based on current stage, grade & subject selections
 const availableGrades = computed(() => {
   let baseGrades = []
   if (tempStage.value === 'all') {
-    baseGrades = [...STAGE_GRADES.primary, ...STAGE_GRADES.middle, ...STAGE_GRADES.high]
+    Object.values(STAGE_GRADES.value).forEach(arr => {
+      baseGrades.push(...arr)
+    })
   } else {
-    baseGrades = [...STAGE_GRADES[tempStage.value]]
+    baseGrades = [...(STAGE_GRADES.value[tempStage.value] || [])]
   }
 
   if (tempSubject.value !== 'all') {
@@ -352,19 +441,19 @@ const availableGrades = computed(() => {
 const availableSubjects = computed(() => {
   let baseSubjects = []
   if (tempStage.value === 'all') {
-    baseSubjects = Array.from(new Set([
-      ...STAGE_SUBJECTS.primary,
-      ...STAGE_SUBJECTS.middle,
-      ...STAGE_SUBJECTS.high
-    ]))
+    const allSubs = []
+    Object.values(STAGE_SUBJECTS.value).forEach(arr => {
+      allSubs.push(...arr)
+    })
+    baseSubjects = Array.from(new Set(allSubs))
   } else {
-    baseSubjects = [...STAGE_SUBJECTS[tempStage.value]]
+    baseSubjects = [...(STAGE_SUBJECTS.value[tempStage.value] || [])]
   }
 
   if (tempGrade.value !== 'all') {
     const gradeStage = getGradeStage(tempGrade.value)
     if (gradeStage) {
-      const stageSubjs = STAGE_SUBJECTS[gradeStage]
+      const stageSubjs = STAGE_SUBJECTS.value[gradeStage] || []
       return baseSubjects.filter(sub => stageSubjs.includes(sub))
     }
   }
@@ -372,7 +461,6 @@ const availableSubjects = computed(() => {
   return baseSubjects
 })
 
-// Advanced results count computation in the Drawer
 const tempFilteredCount = computed(() => {
   let result = resources.value.filter(r => r.status === 'approved')
   if (tempStage.value !== 'all') {
@@ -391,7 +479,6 @@ const isAnyFilterActive = computed(() => {
   return appliedStage.value !== 'all' || appliedGrade.value !== 'all' || appliedSubject.value !== 'all'
 })
 
-// Filter application handlers
 const handleResetFilters = () => {
   tempStage.value = 'all'
   tempGrade.value = 'all'
@@ -416,7 +503,6 @@ const handleClearAllFilters = () => {
   activeCategory.value = '全部'
 }
 
-// Dynamic display filtering
 const filteredResources = computed(() => {
   let result = resources.value.filter(r => r.status === 'approved')
 
@@ -453,13 +539,16 @@ const filteredResources = computed(() => {
   if (sortBy.value === 'downloads') {
     result.sort((a, b) => b.downloads - a.downloads)
   } else {
-    result.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    result.sort((a, b) => {
+      const timeA = a.createTime || a.createdAt || ''
+      const timeB = b.createTime || b.createdAt || ''
+      return String(timeB).localeCompare(String(timeA))
+    })
   }
 
   return result
 })
 
-// Native Uni-App router redirection
 const navigateToDetail = (id) => {
   uni.navigateTo({
     url: `/pages/detail/detail?id=${id}`
@@ -468,9 +557,8 @@ const navigateToDetail = (id) => {
 </script>
 
 <style scoped>
-.grid-cols-2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.font-display {
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 .line-clamp-2 {
   display: -webkit-box;
