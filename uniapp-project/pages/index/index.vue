@@ -4,7 +4,7 @@
     <view class="px-4 pt-5 pb-3 bg-white z-10 relative">
       <view class="relative">
         <view class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgIDxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjgiPjwvY2lyY2xlPgogICAgICAgICAgICA8bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT4KICAgICAgICAgIDwvc3ZnPg==" class="w-5 h-5" style="width: 20px; height: 20px; flex-shrink: 0;" mode="aspectFit" />
+          <view class="w-5 h-5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgIDxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjgiPjwvY2lyY2xlPgogICAgICAgICAgICA8bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT4KICAgICAgICAgIDwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         </view>
         <input 
           type="text"
@@ -33,7 +33,7 @@
           class="flex flex-col items-center justify-center p-4 bg-emerald-50/40 rounded-xl border border-emerald-100/40 hover:bg-emerald-50 hover:border-emerald-100 transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
         >
           <view class="w-12 h-12 bg-[#00685f]/10 rounded-full flex items-center justify-center mb-2">
-            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjMDA2ODVmJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nTTIxLjQyIDEwLjkyMmExIDEgMCAwIDAtLjAxOS0xLjgzOEwxMi44MyA1LjE4YTIgMiAwIDAgMC0xLjY2IDBMMi42IDkuMDhhMSAxIDAgMCAwIDAgMS44MzJsOC41NyAzLjkwOGEyIDIgMCAwIDAgMS42NiAweicgLz48cGF0aCBkPSdNNiAxMnY1YzAgMiAyIDMgNiAzczYtMSA2LTN2LTUnIC8+PHBhdGggZD0nTTIxLjUgMTJ2NicgLz48L3N2Zz4=" class="w-6 h-6" style="width: 24px; height: 24px;" mode="aspectFit" />
+            <view class="w-6 h-6" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjMDA2ODVmJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nTTIxLjQyIDEwLjkyMmExIDEgMCAwIDAtLjAxOS0xLjgzOEwxMi44MyA1LjE4YTIgMiAwIDAgMC0xLjY2IDBMMi42IDkuMDhhMSAxIDAgMCAwIDAgMS44MzJsOC41NyAzLjkwOGEyIDIgMCAwIDAgMS42NiAweicgLz48cGF0aCBkPSdNNiAxMnY1YzAgMiAyIDMgNiAzczYtMSA2LTN2LTUnIC8+PHBhdGggZD0nTTIxLjUgMTJ2NicgLz48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
           <text class="font-sans text-xs font-semibold text-slate-700">小学</text>
         </view>
@@ -43,7 +43,7 @@
           class="flex flex-col items-center justify-center p-4 bg-indigo-50/40 rounded-xl border border-indigo-100/40 hover:bg-indigo-50 hover:border-indigo-100 transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
         >
           <view class="w-12 h-12 bg-indigo-500/10 rounded-full flex items-center justify-center mb-2">
-            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjNjM2NmYxJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEweicgLz48L3N2Zz4=" class="w-5 h-5" style="width: 20px; height: 20px;" mode="aspectFit" />
+            <view class="w-5 h-5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjNjM2NmYxJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEweicgLz48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
           <text class="font-sans text-xs font-semibold text-slate-700">初中</text>
         </view>
@@ -53,7 +53,7 @@
           class="flex flex-col items-center justify-center p-4 bg-amber-50/30 rounded-xl border border-amber-100/30 hover:bg-amber-50 hover:border-amber-100 transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
         >
           <view class="w-12 h-12 bg-amber-500/10 rounded-full flex items-center justify-center mb-2">
-            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjZDk3NzA2JyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nTTIgM2g2YTQgNCAwIDAgMSA0IDR2MTRhMyAzIDAgMCAwLTMtM0gyeicgLz48cGF0aCBkPSdNMjIgM2gtNmE0IDQgMCAwIDAtNCA0djE0YTMgMyAwIDAgMSAzLTNoN3onIC8+PC9zdmc+" class="w-5 h-5" style="width: 20px; height: 20px;" mode="aspectFit" />
+            <view class="w-5 h-5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjZDk3NzA2JyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCc+PHBhdGggZD0nTTIgM2g2YTQgNCAwIDAgMSA0IDR2MTRhMyAzIDAgMCAwLTMtM0gyeicgLz48cGF0aCBkPSdNMjIgM2gtNmE0IDQgMCAwIDAtNCA0djE0YTMgMyAwIDAgMSAzLTNoN3onIC8+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
           <text class="font-sans text-xs font-semibold text-slate-700">高中</text>
         </view>
@@ -61,7 +61,7 @@
 
       <!-- Hot Subjects -->
       <view class="flex items-center gap-1 text-slate-800 font-display text-[15px] font-bold mb-3">
-        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZjQzZjVlIiAgPgogICAgICAgICAgPHBhdGggZD0iTTE3LjY1NyAxNi42NTdMMTMuNDE0IDIwLjlhMS45OTggMS45OTggMCAwMS0yLjgyNyAwbC00LjI0NC00LjI0M2E4IDggMCAxMTExLjMxNCAweiIgLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0xNSAxMWEzIDMgMCAxMS02IDAgMyAzIDAgMDE2IDB6IiAvPgogICAgICAgIDwvc3ZnPg==" class="w-5 h-5 text-rose-500" style="width: 20px; height: 20px; flex-shrink: 0;" mode="aspectFit" />
+        <view class="w-5 h-5 text-rose-500" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZjQzZjVlIiAgPgogICAgICAgICAgPHBhdGggZD0iTTE3LjY1NyAxNi42NTdMMTMuNDE0IDIwLjlhMS45OTggMS45OTggMCAwMS0yLjgyNyAwbC00LjI0NC00LjI0M2E4IDggMCAxMTExLjMxNCAweiIgLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0xNSAxMWEzIDMgMCAxMS02IDAgMyAzIDAgMDE2IDB6IiAvPgogICAgICAgIDwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         <text>热门学科</text>
       </view>
       
@@ -89,7 +89,7 @@
           class="font-sans text-xs font-semibold text-[#00685f] hover:text-[#005049] flex items-center transition-colors cursor-pointer"
         >
           查看全部
-          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjkgMTggMTUgMTIgOSA2Ij48L3BvbHlsaW5lPgogICAgICAgICAgPC9zdmc+" class="w-4 h-4 ml-0.5" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+          <view class="w-4 h-4 ml-0.5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjkgMTggMTUgMTIgOSA2Ij48L3BvbHlsaW5lPgogICAgICAgICAgPC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         </view>
       </view>
 
@@ -103,7 +103,8 @@
           <!-- Cover Image Container -->
           <view class="aspect-[4/3] bg-slate-100 relative overflow-hidden group">
             <image 
-              :src="res.coverUrl" 
+              :src="res.coverUrl || getFallbackCover(res.subject)"
+              @error="res.coverUrl = getFallbackCover(res.subject)"
               mode="aspectFill"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -136,11 +137,11 @@
             <view class="flex items-center justify-between pt-2 border-t border-slate-50 mt-auto">
               <view class="flex items-center gap-3">
                 <view class="flex items-center gap-1 text-amber-500">
-                  <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJjdXJyZW50Q29sb3IiICA+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gcG9pbnRzPSIxMiAyIDE1LjA5IDguMjYgMjIgOS4yNyAxNyAxNC4xNCAxOC4xOCAyMS4wMiAxMiAxNy43NyA1LjgyIDIxLjAyIDcgMTQuMTQgMiA5LjI3IDguOTEgOC4yNiAxMiAyIj48L3BvbHlnb24+CiAgICAgICAgICAgICAgICAgIDwvc3ZnPg==" class="w-3 h-3" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+                  <view class="w-3 h-3" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJjdXJyZW50Q29sb3IiICA+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gcG9pbnRzPSIxMiAyIDE1LjA5IDguMjYgMjIgOS4yNyAxNyAxNC4xNCAxOC4xOCAyMS4wMiAxMiAxNy43NyA1LjgyIDIxLjAyIDcgMTQuMTQgMiA5LjI3IDguOTEgOC4yNiAxMiAyIj48L3BvbHlnb24+CiAgICAgICAgICAgICAgICAgIDwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
                   <text class="font-sans text-[11px] font-bold">4.8</text>
                 </view>
                 <view class="flex items-center gap-1 text-slate-400">
-                  <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgID4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMjEgMTV2NGEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtNCI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjcgMTAgMTIgMTUgMTcgMTAiPjwvcG9seWxpbmU+CiAgICAgICAgICAgICAgICAgICAgPGxpbmUgeDE9IjEyIiB5MT0iMTUiIHgyPSIxMiIgeTI9IjMiPjwvbGluZT4KICAgICAgICAgICAgICAgICAgPC9zdmc+" class="w-3 h-3" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+                  <view class="w-3 h-3" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgID4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMjEgMTV2NGEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtNCI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjcgMTAgMTIgMTUgMTcgMTAiPjwvcG9seWxpbmU+CiAgICAgICAgICAgICAgICAgICAgPGxpbmUgeDE9IjEyIiB5MT0iMTUiIHgyPSIxMiIgeTI9IjMiPjwvbGluZT4KICAgICAgICAgICAgICAgICAgPC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
                   <text class="font-sans text-[11px] font-bold">{{ res.downloads }}</text>
                 </view>
               </view>
@@ -150,7 +151,7 @@
                 class="p-1 -mr-1 rounded-full hover:bg-slate-50 transition-colors"
                 :class="isFavorited(res.id) ? 'text-rose-500' : 'text-slate-300'"
               >
-                <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiA6ZmlsbD0iaXNGYXZvcml0ZWQocmVzLmlkKSA/ICdjdXJyZW50Q29sb3InIDogJ25vbmUnIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMC44NCA0LjYxYTUuNSA1LjUgMCAwIDAtNy43OCAwTDEyIDUuNjdsLTEuMDYtMS4wNmE1LjUgNS41IDAgMCAwLTcuNzggNy43OGwxLjA2IDEuMDZMMTIgMjEuMjNsNy43OC03Ljc4IDEuMDYtMS4wNmE1LjUgNS41IDAgMCAwIDAtNy43OHoiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDwvc3ZnPg==" class="w-4 h-4" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+                <view class="w-4 h-4" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiA6ZmlsbD0iaXNGYXZvcml0ZWQocmVzLmlkKSA/ICdjdXJyZW50Q29sb3InIDogJ25vbmUnIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMC44NCA0LjYxYTUuNSA1LjUgMCAwIDAtNy43OCAwTDEyIDUuNjdsLTEuMDYtMS4wNmE1LjUgNS41IDAgMCAwLTcuNzggNy43OGwxLjA2IDEuMDZMMTIgMjEuMjNsNy43OC03Ljc4IDEuMDYtMS4wNmE1LjUgNS41IDAgMCAwIDAtNy43OHoiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
               </view>
             </view>
           </view>
@@ -163,6 +164,7 @@
 <script setup>
 import { ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
+import { getFallbackCover } from '../../utils/fallbackCovers'
 import { request } from '../../utils/request'
 
 const searchQuery = ref('')

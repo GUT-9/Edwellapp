@@ -52,10 +52,7 @@ public class UserController {
         if (user == null) {
             user = new User();
             user.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
-            user.setUsername(phone.substring(0, 3) + "****" + phone.substring(7)); // Format phone
-            if (phone.length() != 11) {
-                user.setUsername(phone);
-            }
+            user.setUsername(phone); // Save full phone number for authentication
             user.setPassword("123456"); // Encrypt in real scenario
             user.setPoints(100);
             user.setRole("student");
@@ -120,9 +117,15 @@ public class UserController {
 
     private Map<String, Object> getUserProfileMap(User user) {
         Map<String, Object> map = new HashMap<>();
+        String rawPhone = user.getUsername();
+        String maskedPhone = rawPhone;
+        if (rawPhone != null && rawPhone.length() == 11) {
+            maskedPhone = rawPhone.substring(0, 3) + "****" + rawPhone.substring(7);
+        }
+        
         map.put("id", user.getId());
-        map.put("name", user.getUsername()); // Map username to frontend 'name'
-        map.put("phone", user.getUsername());
+        map.put("name", maskedPhone); // Map masked phone to frontend 'name'
+        map.put("phone", maskedPhone);
         map.put("avatarUrl", user.getAvatarUrl());
         map.put("points", user.getPoints());
         map.put("role", user.getRole());

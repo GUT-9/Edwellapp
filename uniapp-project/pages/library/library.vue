@@ -3,7 +3,7 @@
     <!-- Search and Filter Bar -->
     <view class="bg-white border-b border-slate-100 px-4 py-3 flex flex-row items-center justify-between gap-3 sticky top-0 z-20">
       <view :class="['flex-1 flex flex-row items-center bg-slate-100 rounded-lg px-3 py-2 border transition-all duration-200', isFocused ? 'border-[#00685f] bg-white shadow-sm ring-light' : 'border-slate-200/50']">
-        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4=" class="text-slate-400 mr-2 shrink-0" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+        <view class="text-slate-400 mr-2 shrink-0" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         <input 
           type="text" 
           v-model="searchQuery" 
@@ -13,7 +13,7 @@
           class="flex-1 bg-transparent font-sans text-xs text-slate-700 outline-none"
         />
         <view v-if="searchQuery" @click="searchQuery = ''" class="text-slate-400 font-sans text-xs font-bold px-1 cursor-pointer">
-          <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxsaW5lIHgxPSIxOCIgeTE9IjYiIHgyPSI2IiB5Mj0iMTgiPjwvbGluZT48bGluZSB4MT0iNiIgeTE9IjYiIHgyPSIxOCIgeTI9IjE4Ij48L2xpbmU+PC9zdmc+" class="text-slate-400" style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
+          <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxsaW5lIHgxPSIxOCIgeTE9IjYiIHgyPSI2IiB5Mj0iMTgiPjwvbGluZT48bGluZSB4MT0iNiIgeTE9IjYiIHgyPSIxOCIgeTI9IjE4Ij48L2xpbmU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         </view>
       </view>
 
@@ -23,7 +23,7 @@
           isAnyFilterActive ? 'bg-[#00685f]/10 text-[#00685f] border-[#00685f]/20' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
         ]"
       >
-        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMjEiIHkxPSI0IiB4Mj0iMTQiIHkyPSI0Ij48L2xpbmU+PGxpbmUgeDE9IjEwIiB5MT0iNCIgeDI9IjMiIHkyPSI0Ij48L2xpbmU+PGxpbmUgeDE9IjIxIiB5MT0iMTIiIHgyPSIxMiIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjgiIHkxPSIxMiIgeDI9IjMiIHkyPSIxMiI+PC9saW5lPjxsaW5lIHgxPSIyMSIgeTE9IjIwIiB4Mj0iMTYiIHkyPSIyMCI+PC9saW5lPjxsaW5lIHgxPSIxMiIgeTE9IjIwIiB4Mj0iMyIgeTI9IjIwIj48L2xpbmU+PGxpbmUgeDE9IjE0IiB5MT0iMiIgeDI9IjE0IiB5Mj0iNiI+PC9saW5lPjxsaW5lIHgxPSI4IiB5MT0iMTAiIHgyPSI4IiB5Mj0iMTQiPjwvbGluZT48bGluZSB4MT0iMTYiIHkxPSIxOCIgeDI9IjE2IiB5Mj0iMjIiPjwvbGluZT48L3N2Zz4="  style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
+        <view class="" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMjEiIHkxPSI0IiB4Mj0iMTQiIHkyPSI0Ij48L2xpbmU+PGxpbmUgeDE9IjEwIiB5MT0iNCIgeDI9IjMiIHkyPSI0Ij48L2xpbmU+PGxpbmUgeDE9IjIxIiB5MT0iMTIiIHgyPSIxMiIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjgiIHkxPSIxMiIgeDI9IjMiIHkyPSIxMiI+PC9saW5lPjxsaW5lIHgxPSIyMSIgeTE9IjIwIiB4Mj0iMTYiIHkyPSIyMCI+PC9saW5lPjxsaW5lIHgxPSIxMiIgeTE9IjIwIiB4Mj0iMyIgeTI9IjIwIj48L2xpbmU+PGxpbmUgeDE9IjE0IiB5MT0iMiIgeDI9IjE0IiB5Mj0iNiI+PC9saW5lPjxsaW5lIHgxPSI4IiB5MT0iMTAiIHgyPSI4IiB5Mj0iMTQiPjwvbGluZT48bGluZSB4MT0iMTYiIHkxPSIxOCIgeDI9IjE2IiB5Mj0iMjIiPjwvbGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         <text>筛选</text>
         <view v-if="isAnyFilterActive" class="w-2 h-2 rounded-full bg-[#00685f] ml-1"></view>
       </view>
@@ -57,7 +57,7 @@
         class="flex flex-row items-center text-slate-500 font-sans text-xs font-medium gap-1 hover:text-[#00685f] transition-colors cursor-pointer"
       >
         <text>{{ sortBy === 'time' ? '最新发布' : '下载量高' }}</text>
-        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Im0yMSAxNi00IDQtNC00Ij48L3BhdGg+PHBhdGggZD0iTTE3IDIwVjQiPjwvcGF0aD48cGF0aCBkPSJtMyA4IDQtNCA0IDQiPjwvcGF0aD48cGF0aCBkPSJNNyA0djE2Ij48L3BhdGg+PC9zdmc+" class="text-slate-400" style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
+        <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Im0yMSAxNi00IDQtNC00Ij48L3BhdGg+PHBhdGggZD0iTTE3IDIwVjQiPjwvcGF0aD48cGF0aCBkPSJtMyA4IDQtNCA0IDQiPjwvcGF0aD48cGF0aCBkPSJNNyA0djE2Ij48L3BhdGg+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
       </view>
     </view>
 
@@ -74,7 +74,7 @@
         {{ appliedSubject }}
       </text>
       <view @click="handleClearAllFilters" class="text-[#00685f] hover:text-[#008378] text-[11px] font-semibold ml-1 underline flex flex-row items-center gap-0.5 cursor-pointer">
-        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4=" class="text-[#00685f]" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+        <view class="text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         <text>重置</text>
       </view>
     </view>
@@ -88,7 +88,7 @@
         class="group bg-white rounded-xl overflow-hidden border border-slate-200/60 flex flex-col cursor-pointer hover:border-[#00685f]/40 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300"
       >
         <view class="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
-          <image :src="res.coverUrl" mode="aspectFill" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <image :src="res.coverUrl || getFallbackCover(res.subject)" @error="res.coverUrl = getFallbackCover(res.subject)" mode="aspectFill" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
           <view class="absolute top-2 right-2 z-10">
             <text class="bg-slate-900/80 backdrop-blur-sm text-white text-[9px] font-display font-bold px-1.5 py-0.5 rounded tracking-wider uppercase">
               {{ res.fileType }}
@@ -117,11 +117,11 @@
           <view class="flex flex-row justify-between items-center mt-2 border-t border-slate-100 pt-2 text-[10px] text-slate-500">
             <view class="flex flex-row items-center gap-2">
               <view class="flex flex-row items-center gap-0.5 text-amber-500 font-bold">
-                <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmNTllMGIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiAxNS4wOSA4LjI2IDIyIDkuMjcgMTcgMTQuMTQgMTguMTggMjEuMDIgMTIgMTcuNzcgNS44MiAyMS4wMiA3IDE0LjE0IDIgOS4yNyA4LjkxIDguMjYgMTIgMiI+PC9wb2x5Z29uPjwvc3ZnPg==" class="fill-current text-amber-500" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+                <view class="fill-current text-amber-500" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmNTllMGIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiAxNS4wOSA4LjI2IDIyIDkuMjcgMTcgMTQuMTQgMTguMTggMjEuMDIgMTIgMTcuNzcgNS44MiAyMS4wMiA3IDE0LjE0IDIgOS4yNyA4LjkxIDguMjYgMTIgMiI+PC9wb2x5Z29uPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
                 <text>{{ (res.rating || 5.0).toFixed(1) }}</text>
               </view>
               <view class="flex flex-row items-center gap-0.5 text-slate-400">
-                <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMSAxNXY0YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0ydi00Ij48L3BhdGg+PHBvbHlsaW5lIHBvaW50cz0iNyAxMCAxMiAxNSAxNyAxMCI+PC9wb2x5bGluZT48bGluZSB4MT0iMTIiIHkxPSIxNSIgeDI9IjEyIiB5Mj0iMyI+PC9saW5lPjwvc3ZnPg==" class="text-slate-400" style="width: 12px; height: 12px; flex-shrink: 0;" mode="aspectFit" />
+                <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMSAxNXY0YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0ydi00Ij48L3BhdGg+PHBvbHlsaW5lIHBvaW50cz0iNyAxMCAxMiAxNSAxNyAxMCI+PC9wb2x5bGluZT48bGluZSB4MT0iMTIiIHkxPSIxNSIgeDI9IjEyIiB5Mj0iMyI+PC9saW5lPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
                 <text>{{ res.downloads >= 1000 ? `${(res.downloads / 1000).toFixed(1)}k` : res.downloads }}</text>
               </view>
             </view>
@@ -133,7 +133,7 @@
     <!-- Empty State -->
     <view v-else class="flex flex-col items-center justify-center py-20 px-6 text-center">
       <view class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-        <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4=" class="text-slate-400" style="width: 40px; height: 40px; flex-shrink: 0;" mode="aspectFit" />
+        <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
       </view>
       <text class="font-display text-base font-bold text-slate-700 mb-1">暂无相关资源</text>
       <text class="font-sans text-xs text-slate-400 max-w-xs leading-relaxed">
@@ -158,7 +158,7 @@
         <view class="flex flex-row justify-between items-center px-6 py-4 border-b border-slate-100 shrink-0">
           <text class="font-display text-base font-bold text-slate-800">资源筛选</text>
           <view @click="isFilterOpen = false" class="p-1 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
-            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMTgiIHkxPSI2IiB4Mj0iNiIgeTI9IjE4Ij48L2xpbmU+PGxpbmUgeDE9IjYiIHkxPSI2IiB4Mj0iMTgiIHkyPSIxOCI+PC9saW5lPjwvc3ZnPg=="  style="width: 20px; height: 20px; flex-shrink: 0;" mode="aspectFit" />
+            <view class="" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMTgiIHkxPSI2IiB4Mj0iNiIgeTI9IjE4Ij48L2xpbmU+PGxpbmUgeDE9IjYiIHkxPSI2IiB4Mj0iMTgiIHkyPSIxOCI+PC9saW5lPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
         </view>
 
@@ -167,7 +167,7 @@
           <!-- Stage Section -->
           <view class="space-y-3 mb-6">
             <view class="flex flex-row items-center gap-1.5 text-[#00685f] font-sans text-xs font-semibold">
-              <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjEuNDIgMTAuOTIyYTEgMSAwIDAgMC0uMDE5LTEuODM4TDEyLjgzIDUuMThhMiAyIDAgMCAwLTEuNjYgMEwyLjYgOS4wOGExIDEgMCAwIDAgMCAxLjgzMmw4LjU3IDMuOTA4YTIgMiAwIDAgMCAxLjY2IDB6Ij48L3BhdGg+PHBhdGggZD0iTTYgMTJ2NWMwIDIgMiAzIDYgM3M2LTEgNi0zdi01Ij48L3BhdGg+PC9zdmc+" class="text-[#00685f]" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+              <view class="text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjEuNDIgMTAuOTIyYTEgMSAwIDAgMC0uMDE5LTEuODM4TDEyLjgzIDUuMThhMiAyIDAgMCAwLTEuNjYgMEwyLjYgOS4wOGExIDEgMCAwIDAgMCAxLjgzMmw4LjU3IDMuOTA4YTIgMiAwIDAgMCAxLjY2IDB6Ij48L3BhdGg+PHBhdGggZD0iTTYgMTJ2NWMwIDIgMiAzIDYgM3M2LTEgNi0zdi01Ij48L3BhdGg+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
               <text>学段选择</text>
             </view>
             <view class="grid grid-cols-3 gap-2">
@@ -195,7 +195,7 @@
           <!-- Grade Section (Cascading) -->
           <view class="space-y-3 mb-6">
             <view class="flex flex-row items-center gap-1.5 text-[#00685f] font-sans text-xs font-semibold">
-              <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtMTIgMy0xMCA1TDEyIDEzbDEwLTUtMTAtNVoiPjwvcGF0aD48cGF0aCBkPSJtMiAxNyAxMCA1IDEwLTUiPjwvcGF0aD48cGF0aCBkPSJtMiAxMiAxMCA1IDEwLTUiPjwvcGF0aD48L3N2Zz4=" class="text-[#00685f]" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+              <view class="text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtMTIgMy0xMCA1TDEyIDEzbDEwLTUtMTAtNVoiPjwvcGF0aD48cGF0aCBkPSJtMiAxNyAxMCA1IDEwLTUiPjwvcGF0aD48cGF0aCBkPSJtMiAxMiAxMCA1IDEwLTUiPjwvcGF0aD48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
               <text>年级选择</text>
             </view>
             <view class="grid grid-cols-3 gap-2">
@@ -223,7 +223,7 @@
           <!-- Subject Section (Cascading) -->
           <view class="space-y-3 mb-6">
             <view class="flex flex-row items-center gap-1.5 text-[#00685f] font-sans text-xs font-semibold">
-              <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAzaDZhNCA0IDAgMCAxIDQgNHYxNGEzIDMgMCAwIDAtMy0zSDJ6Ij48L3BhdGg+PHBhdGggZD0iTTIyIDNoLTZhNCA0IDAgMCAwLTQgNHYxNGEzIDMgMCAwIDEgMy0zaDd6Ij48L3BhdGg+PC9zdmc+" class="text-[#00685f]" style="width: 16px; height: 16px; flex-shrink: 0;" mode="aspectFit" />
+              <view class="text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMiAzaDZhNCA0IDAgMCAxIDQgNHYxNGEzIDMgMCAwIDAtMy0zSDJ6Ij48L3BhdGg+PHBhdGggZD0iTTIyIDNoLTZhNCA0IDAgMCAwLTQgNHYxNGEzIDMgMCAwIDEgMy0zaDd6Ij48L3BhdGg+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
               <text>学科分类</text>
             </view>
             <view class="grid grid-cols-3 gap-2">
@@ -255,7 +255,7 @@
             @click="handleResetFilters"
             class="flex-1 flex flex-row items-center justify-center gap-1 text-slate-600 font-sans text-xs font-semibold py-3 rounded-xl border border-slate-200 bg-white cursor-pointer hover:text-slate-800"
           >
-            <image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4=" class="text-slate-500" style="width: 14px; height: 14px; flex-shrink: 0;" mode="aspectFit" />
+            <view class="text-slate-500" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
             <text>重置</text>
           </view>
           <view 
@@ -272,6 +272,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import { getFallbackCover } from '../../utils/fallbackCovers'
 import { onShow } from '@dcloudio/uni-app'
 import { request } from '../../utils/request'
 

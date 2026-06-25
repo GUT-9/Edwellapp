@@ -62,9 +62,9 @@ public class ResourceController {
     @GetMapping("/subjects")
     public Result<Map<String, List<String>>> getSubjects() {
         Map<String, List<String>> subjects = new HashMap<>();
-        subjects.put("primary", Arrays.asList("语文", "数学", "英语", "科学", "道德与法治"));
-        subjects.put("middle", Arrays.asList("语文", "数学", "英语", "物理", "化学", "生物", "历史", "地理", "道德与法治"));
-        subjects.put("high", Arrays.asList("语文", "数学", "英语", "物理", "化学", "生物", "历史", "地理", "政治"));
+        subjects.put("primary", Arrays.asList("语文", "数学", "英语", "科学", "道德与法治", "综合"));
+        subjects.put("middle", Arrays.asList("语文", "数学", "英语", "物理", "化学", "生物", "历史", "地理", "道德与法治", "综合"));
+        subjects.put("high", Arrays.asList("语文", "数学", "英语", "物理", "化学", "生物", "历史", "地理", "政治", "综合"));
         return Result.success(subjects);
     }
 
@@ -83,9 +83,9 @@ public class ResourceController {
     @GetMapping("/grades")
     public Result<Map<String, List<String>>> getGrades() {
         Map<String, List<String>> grades = new HashMap<>();
-        grades.put("primary", Arrays.asList("一年级", "二年级", "三年级", "四年级", "五年级", "六年级"));
-        grades.put("middle", Arrays.asList("七年级", "八年级", "九年级"));
-        grades.put("high", Arrays.asList("高一", "高二", "高三"));
+        grades.put("primary", Arrays.asList("一年级", "二年级", "三年级", "四年级", "五年级", "六年级", "小学全学段"));
+        grades.put("middle", Arrays.asList("七年级", "八年级", "九年级", "中考复习", "竞赛", "初中全学段"));
+        grades.put("high", Arrays.asList("高一", "高二", "高三", "高考复习", "竞赛", "高中全学段"));
         return Result.success(grades);
     }
 
@@ -251,6 +251,34 @@ public class ResourceController {
         pointRecordMapper.insert(rewardRecord);
 
         return Result.success(resource);
+    }
+
+    @Operation(summary = "删除资源")
+    @DeleteMapping("/resources/{id}")
+    @Transactional(rollbackFor = Exception.class)
+    public Result<?> deleteResource(@PathVariable String id) {
+        String userId = UserContext.getUserId();
+        if (userId == null) return Result.error(401, "请先登录");
+        
+        User user = userMapper.selectById(userId);
+        if (user == null) return Result.error(401, "用户不存在");
+
+        Resource resource = resourceMapper.selectById(id);
+        if (resource == null) return Result.error("资源不存在");
+
+        // 只有管理员或者资源上传者可以删除
+        if (!"admin".equals(user.getRole()) && !userId.equals(resource.getAuthorId())) {
+            return Result.error(403, "没有权限删除此资源");
+        }
+
+        // 删除相关记录
+        favoriteMapper.delete(new QueryWrapper<Favorite>().eq("resource_id", id));
+        downloadRecordMapper.delete(new QueryWrapper<DownloadRecord>().eq("resource_id", id));
+        
+        // 删除资源
+        resourceMapper.deleteById(id);
+
+        return Result.success("删除成功");
     }
 
     @Operation(summary = "获取用户上传的全部资源(包括审核中和已驳回)")
