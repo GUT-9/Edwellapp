@@ -1,7 +1,7 @@
 <template>
   <view class="flex-1 flex flex-col bg-slate-50 min-h-screen pb-32">
     <!-- Sub-page Header -->
-    <view class="sticky top-0 z-40 bg-white/90 backdrop-blur-md w-full h-14 flex flex-row items-center justify-between px-4 border-b border-slate-100 shrink-0 mt-8">
+    <view class="sticky top-0 z-40 bg-white/90 backdrop-blur-md w-full box-border h-14 flex flex-row items-center justify-between px-4 border-b border-slate-100 shrink-0 mt-8">
       <view 
         @click="handleBack"
         class="p-2 -ml-2 rounded-full hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-all cursor-pointer"
@@ -43,7 +43,8 @@
           <!-- Play Button Overlay if MP4 or VIDEO -->
           <view v-if="isVideo(resource.fileType)"
             @click="isPlaying = true"
-            class="absolute inset-0 m-auto w-16 h-16 bg-white/25 hover:bg-white/35 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            class="absolute inset-0 m-auto w-16 h-16 bg-white/25 hover:bg-white/35 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-all duration-300 cursor-pointer"
+            hover-class="opacity-80 scale-95"
           >
             <view class="fill-current text-white ml-1" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWdvbiBwb2ludHM9IjUgMyAxOSAxMiA1IDIxIDUgMyI+PC9wb2x5Z29uPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
@@ -170,9 +171,10 @@
         <!-- Favorite Button -->
         <view 
           @click="handleFavoriteToggle"
-          :class="['w-10 h-10 flex items-center justify-center rounded-full border transition-colors active:scale-95 cursor-pointer',
+          :class="['w-10 h-10 flex items-center justify-center rounded-full border transition-colors cursor-pointer',
             isFavorited ? 'text-rose-500 border-rose-100 bg-rose-50' : 'text-slate-400 hover:text-slate-600 border-slate-200 bg-white'
           ]"
+          hover-class="opacity-80 scale-95"
         >
           <view class="text-rose-500 fill-current" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHYtaWY9ImlzRmF2b3JpdGVkIiAgIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjQzZjVlIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTkgMTRjMS40OS0xLjQ2IDMtMy4yMSAzLTUuNUE1LjUgNS41IDAgMCAwIDE2LjUgM2MtMS43NiAwLTMgLjUtNC41IDItMS41LTEuNS0yLjc0LTItNC41LTJBNS41IDUuNSAwIDAgMCAyIDguNWMwIDIuMyAxLjUgNC4wNSAzIDUuNWw3IDdaIj48L3BhdGg+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHYtZWxzZSAgIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTkgMTRjMS40OS0xLjQ2IDMtMy4yMSAzLTUuNUE1LjUgNS41IDAgMCAwIDE2LjUgM2MtMS43NiAwLTMgLjUtNC41IDItMS41LTEuNS0yLjc0LTItNC41LTJBNS41IDUuNSAwIDAgMCAyIDguNWMwIDIuMyAxLjUgNC4wNSAzIDUuNWw3IDdaIj48L3BhdGg+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
@@ -181,11 +183,12 @@
         <!-- Download Button -->
         <button 
           @click="handleDownloadClick"
-          :class="['px-8 py-2.5 rounded-full font-display text-sm font-bold shadow-sm cursor-pointer transition-all active:scale-95 border-none',
+          :class="['px-8 py-2.5 rounded-full font-display text-sm font-bold shadow-sm cursor-pointer transition-all border-none',
             isDownloaded
               ? 'bg-slate-100 text-slate-500 border border-slate-200'
               : 'bg-[#00685f] hover:bg-[#008378] text-white'
           ]"
+          hover-class="opacity-80 scale-95"
         >
           {{ isDownloaded ? '查看文件' : '立即下载' }}
         </button>
@@ -352,7 +355,7 @@ const handleFavoriteToggle = async () => {
   }
 
   try {
-    const res = await request({
+    await request({
       url: `/resources/${resourceId.value}/favorite`,
       method: 'POST'
     })
@@ -540,7 +543,7 @@ export default {
 }
 
 @keyframes progress {
-  from { width: 0%; }
+  from { width: 0; }
   to { width: 100%; }
 }
 .animate-progress {

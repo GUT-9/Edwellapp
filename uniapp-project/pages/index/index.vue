@@ -86,7 +86,7 @@
         <text class="font-display text-base font-bold text-slate-800">精选资源</text>
         <view 
           @click="goToLibraryAll"
-          class="font-sans text-xs font-semibold text-[#00685f] hover:text-[#005049] flex items-center transition-colors cursor-pointer"
+          class="font-sans text-xs font-semibold text-[#00685f] hover:text-[#005049] flex items-center transition-colors cursor-pointer p-2 -mr-2"
         >
           查看全部
           <view class="w-4 h-4 ml-0.5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiICA+CiAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjkgMTggMTUgMTIgOSA2Ij48L3BvbHlsaW5lPgogICAgICAgICAgPC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
@@ -297,7 +297,7 @@ const handleFavorite = async (id) => {
   }
 
   try {
-    const res = await request({
+    await request({
       url: `/resources/${id}/favorite`,
       method: 'POST'
     })

@@ -26,16 +26,6 @@
               </picker>
             </view>
           </view>
-          
-          <!-- Admin Switcher if role is admin -->
-          <view v-if="user.role === 'admin'" class="flex items-center gap-1 shrink-0">
-            <view 
-              @click="goToAdmin"
-              class="p-1.5 text-slate-400 hover:text-[#00685f] rounded-full hover:bg-slate-50 transition-colors cursor-pointer"
-            >
-              <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIj48L2NpcmNsZT48cGF0aCBkPSJNMTkuNCAxNWExLjY1IDEuNjUgMCAwIDAgLjMzIDEuODJsLjA2LjA2YTIgMiAwIDEgMS0yLjgzIDIuODNsLS4wNi0uMDZhMS42NSAxLjY1IDAgMCAwLTEuODItLjMzIDEuNjUgMS42NSAwIDAgMC0xIDEuNTFWMjFhMiAyIDAgMCAxLTQgMHYtLjA5QTEuNjUgMS42NSAwIDAgMCA5IDE5LjRhMS42NSAxLjY1IDAgMCAwLTEuODIuMzNsLS4wNi4wNmEyIDIgMCAxIDEtMi44My0yLjgzbC4wNi0uMDZhMS42NSAxLjY1IDAgMCAwIC4zMy0xLjgyIDEuNjUgMS42NSAwIDAgMC0xLjUxLTFIM2EyIDIgMCAwIDEgMC00aC4wOUExLjY1IDEuNjUgMCAwIDAgNC42IDlhMS42NSAxLjY1IDAgMCAwLS4zMy0xLjgybC0uMDYtLjA2YTIgMiAwIDEgMSAyLjgzLTIuODNsLjA2LjA2YTEuNjUgMS42NSAwIDAgMCAxLjgyLjMzSDlhMS42NSAxLjY1IDAgMCAwIDEtMS41MVYzYTIgMiAwIDAgMSA0IDB2LjA5YTEuNjUgMS42NSAwIDAgMCAxIDEuNTEgMS42NSAxLjY1IDAgMCAwIDEuODItLjMzbC4wNi0uMDZhMiAyIDAgMSAxIDIuODMgMi44M2wtLjA2LjA2YTEuNjUgMS42NSAwIDAgMC0uMzMgMS44MlY5YTEuNjUgMS42NSAwIDAgMCAxLjUxIDFIMjFhMiAyIDAgMCAxIDAgNGgtLjA5YTEuNjUgMS42NSAwIDAgMC0xLjUxIDF6Ij48L3BhdGg+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
-            </view>
-          </view>
         </view>
 
         <view class="h-[1px] w-full bg-slate-100"></view>
@@ -63,6 +53,25 @@
             <text class="font-sans text-[10px] text-slate-400 font-semibold">贡献资源</text>
           </view>
         </view>
+
+        <!-- Quick Actions (Moved from bottom) -->
+        <view class="flex flex-row gap-2 mt-1">
+          <button 
+            @click="handleLogout"
+            class="flex-1 font-sans text-xs font-semibold text-slate-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
+            hover-class="opacity-80 scale-95"
+          >
+            退出登录
+          </button>
+          <button 
+            v-if="user.role === 'admin'"
+            @click="goToAdmin"
+            class="flex-1 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 py-2 border border-[#00685f]/20 rounded-lg shadow-sm text-center border-solid m-0"
+            hover-class="opacity-80 scale-95"
+          >
+            进入管理员后台
+          </button>
+        </view>
       </view>
     </view>
 
@@ -72,7 +81,7 @@
         <view
           v-for="tab in tabConfig"
           :key="tab.id"
-          @click="activeTab = tab.id"
+          @click="onTabChange(tab.id)"
           :class="['flex-1 text-center py-2.5 font-sans text-xs font-semibold rounded-lg cursor-pointer transition-all duration-200 flex flex-row items-center justify-center gap-1',
             activeTab === tab.id
               ? 'bg-white shadow-sm text-[#00685f] font-bold'
@@ -164,29 +173,13 @@
         <text class="font-sans text-xs text-slate-400">暂无相应记录</text>
       </view>
 
-      <!-- Buttons -->
-      <view class="mt-8 flex flex-row justify-center gap-3">
-        <button 
-          @click="handleLogout"
-          class="flex-1 font-sans text-xs font-semibold text-slate-500 bg-white hover:bg-slate-50 py-2.5 border border-slate-200 rounded-xl shadow-sm active:scale-95 transition-transform text-center border-solid"
-        >
-          退出登录
-        </button>
-        <button 
-          v-if="user.role === 'admin'"
-          @click="goToAdmin"
-          class="flex-1 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 hover:bg-[#00685f]/20 py-2.5 border border-[#00685f]/20 rounded-xl shadow-sm active:scale-95 transition-transform text-center border-solid"
-        >
-          进入管理员后台
-        </button>
-      </view>
     </view>
   </view>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import { onShow } from '@dcloudio/uni-app'
+import { onShow, onReachBottom } from '@dcloudio/uni-app'
 import { getFallbackCover } from '../../utils/fallbackCovers'
 import { request } from '../../utils/request'
 
@@ -205,12 +198,18 @@ const user = ref({})
 const activeTab = ref('favorites')
 const allApprovedResources = ref([])
 const myUploadedResources = ref([])
+const displayCount = ref(10)
 
 onShow(() => {
+  displayCount.value = 10
   fetchUserProfile()
   fetchApprovedResources()
   fetchMyUploads()
   fetchGrades()
+})
+
+onReachBottom(() => {
+  displayCount.value += 10
 })
 
 const fetchGrades = async () => {
@@ -362,31 +361,31 @@ const getSubjectClass = (subject) => {
 
 // Compute tab contents dynamically
 const activeTabResources = computed(() => {
+  let list = []
   if (activeTab.value === 'favorites') {
     const ids = user.value.favoritedIds || []
-    return allApprovedResources.value.filter(r => ids.includes(r.id))
-  }
-  
-  if (activeTab.value === 'downloads') {
+    list = allApprovedResources.value.filter(r => ids.includes(r.id))
+  } else if (activeTab.value === 'downloads') {
     const ids = user.value.downloadedIds || []
-    return allApprovedResources.value.filter(r => ids.includes(r.id))
-  }
-  
-  if (activeTab.value === 'uploads') {
-    return myUploadedResources.value
-  }
-  
-  if (activeTab.value === 'history') {
+    list = allApprovedResources.value.filter(r => ids.includes(r.id))
+  } else if (activeTab.value === 'uploads') {
+    list = myUploadedResources.value
+  } else if (activeTab.value === 'history') {
     const historyIds = uni.getStorageSync('browse_history') || []
     // Keep list unique and reverse chronological
     const uniqueIds = Array.from(new Set(historyIds)).reverse()
-    return uniqueIds
+    list = uniqueIds
       .map(id => allApprovedResources.value.find(r => r.id === id))
       .filter(r => r !== undefined)
   }
-
-  return []
+  
+  return list.slice(0, displayCount.value)
 })
+
+const onTabChange = (tabId) => {
+  activeTab.value = tabId
+  displayCount.value = 10
+}
 </script>
 
 <style scoped>

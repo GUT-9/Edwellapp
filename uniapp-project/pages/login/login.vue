@@ -61,7 +61,8 @@
         <!-- Submit Action Button -->
         <button 
           @click="handleSubmit"
-          class="w-full bg-[#00685f] hover:bg-[#005049] text-white font-display text-sm font-bold h-[48px] leading-[48px] rounded-xl shadow-md cursor-pointer transition-all active:scale-[0.98] mt-2 text-center border-none after:border-none"
+          class="w-full bg-[#00685f] hover:bg-[#005049] text-white font-display text-sm font-bold h-[48px] leading-[48px] rounded-xl shadow-md cursor-pointer transition-all mt-2 text-center border-none after:border-none"
+          hover-class="opacity-80 scale-95"
         >
           登录 / 注册
         </button>

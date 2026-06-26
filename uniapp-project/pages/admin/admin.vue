@@ -49,12 +49,12 @@
       <!-- Counters Bento Grid -->
       <view class="grid grid-cols-3 gap-2 text-center mt-2">
         <view class="bg-white rounded-xl p-3 border border-slate-200/50 shadow-xs flex flex-col items-center">
-          <text class="font-display text-base font-bold text-slate-800">12,450</text>
+          <text class="font-display text-base font-bold text-slate-800">{{ totalUsersCount }}</text>
           <text class="font-sans text-[9px] text-slate-400 font-semibold mt-0.5">总注册用户</text>
         </view>
 
         <view class="bg-white rounded-xl p-3 border border-slate-200/50 shadow-xs flex flex-col items-center">
-          <text class="font-display text-base font-bold text-slate-800">{{ approvedResourcesCount + 45800 }}</text>
+          <text class="font-display text-base font-bold text-slate-800">{{ approvedResourcesCount }}</text>
           <text class="font-sans text-[9px] text-slate-400 font-semibold mt-0.5">平台资源总数</text>
         </view>
 
@@ -182,7 +182,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { request } from '../../utils/request'
 
@@ -196,6 +196,7 @@ const tabs = [
 const activeTab = ref('dashboard')
 const pendingResources = ref([])
 const approvedResourcesCount = ref(0)
+const totalUsersCount = ref(0)
 
 const isRejectOpen = ref(false)
 const rejectResourceId = ref('')
@@ -229,6 +230,7 @@ const verifyAdminAccess = async () => {
     // Load data
     fetchPendingResources()
     fetchApprovedCount()
+    fetchTotalUsers()
   } catch (err) {
     uni.navigateTo({ url: '/pages/login/login' })
   }
@@ -257,6 +259,18 @@ const fetchApprovedCount = async () => {
     approvedResourcesCount.value = res.data.length
   } catch (err) {
     console.error(err)
+  }
+}
+
+const fetchTotalUsers = async () => {
+  try {
+    const res = await request({
+      url: '/admin/users',
+      method: 'GET'
+    })
+    totalUsersCount.value = res.data.length || 0
+  } catch (err) {
+    console.error('Failed to fetch total users:', err)
   }
 }
 

@@ -214,7 +214,8 @@
       <view class="pt-4">
         <button 
           @click="handleStartUpload"
-          class="w-full bg-[#00685f] hover:bg-[#008378] text-white font-sans text-sm font-bold py-3.5 rounded-xl shadow-md cursor-pointer transition-all active:scale-[0.98] flex flex-row items-center justify-center gap-1.5 border-none"
+          class="w-full bg-[#00685f] hover:bg-[#008378] text-white font-sans text-sm font-bold py-3.5 rounded-xl shadow-md cursor-pointer transition-all flex flex-row items-center justify-center gap-1.5 border-none"
+          hover-class="opacity-80 scale-95"
         >
           <view class="text-white" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjEgMTV2NGEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtNCI+PC9wYXRoPjxwb2x5bGluZSBwb2ludHM9IjE3IDggMTIgMyA3IDgiPjwvcG9seWxpbmU+PGxpbmUgeDE9IjEyIiB5MT0iMyIgeDI9IjEyIiB5Mj0iMTUiPjwvbGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           <text>开始上传</text>
@@ -270,8 +271,21 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { onShow } from '@dcloudio/uni-app'
+import { onShow, onHide, onUnload } from '@dcloudio/uni-app'
 import { request, uploadFile } from '../../utils/request'
+
+let parseTimer = null
+let progressInterval = null
+
+onHide(() => {
+  if (parseTimer) clearTimeout(parseTimer)
+  if (progressInterval) clearInterval(progressInterval)
+})
+
+onUnload(() => {
+  if (parseTimer) clearTimeout(parseTimer)
+  if (progressInterval) clearInterval(progressInterval)
+})
 
 // Config
 const stages = ref([])
@@ -403,29 +417,30 @@ const processSelectedFile = (file) => {
   
   // Extract extension
   const idx = file.name.lastIndexOf('.')
-  const ext = idx !== -1 ? file.name.substring(idx + 1).toUpperCase() : 'DOC'
-  fileType.value = ext
+  fileType.value = idx !== -1 ? file.name.substring(idx + 1).toUpperCase() : 'DOC'
   tempFilePath.value = file.path
+
+  if (parseTimer) clearTimeout(parseTimer)
 
   // Smart autofill stage and subject based on filename
   if (file.name.includes('数学')) {
     stage.value = 'high'
     stageName.value = '高中'
-    setTimeout(() => {
+    parseTimer = setTimeout(() => {
       grade.value = '高二'
       subject.value = '数学'
     }, 50)
   } else if (file.name.includes('物理')) {
     stage.value = 'middle'
     stageName.value = '初中'
-    setTimeout(() => {
+    parseTimer = setTimeout(() => {
       grade.value = '九年级'
       subject.value = '物理'
     }, 50)
   } else if (file.name.includes('语文')) {
     stage.value = 'primary'
     stageName.value = '小学'
-    setTimeout(() => {
+    parseTimer = setTimeout(() => {
       grade.value = '六年级'
       subject.value = '语文'
     }, 50)
@@ -495,8 +510,9 @@ const handleStartUpload = async () => {
 
   try {
     uploadProgress.value = 0
+    if (progressInterval) clearInterval(progressInterval)
     // Simulate progress animation
-    const progressInterval = setInterval(() => {
+    progressInterval = setInterval(() => {
       if (uploadProgress.value !== null && uploadProgress.value < 90) {
         uploadProgress.value += 10
       }

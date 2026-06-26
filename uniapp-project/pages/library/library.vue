@@ -12,8 +12,8 @@
           placeholder="搜索资源、教案、试卷..." 
           class="flex-1 bg-transparent font-sans text-xs text-slate-700 outline-none"
         />
-        <view v-if="searchQuery" @click="searchQuery = ''" class="text-slate-400 font-sans text-xs font-bold px-1 cursor-pointer">
-          <view class="text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxsaW5lIHgxPSIxOCIgeTE9IjYiIHgyPSI2IiB5Mj0iMTgiPjwvbGluZT48bGluZSB4MT0iNiIgeTE9IjYiIHgyPSIxOCIgeTI9IjE4Ij48L2xpbmU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+        <view v-if="searchQuery" @click="searchQuery = ''" class="text-slate-400 font-sans text-xs font-bold p-2 -mr-1 cursor-pointer flex items-center justify-center">
+          <view class="w-4 h-4 text-slate-400" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxsaW5lIHgxPSIxOCIgeTE9IjYiIHgyPSI2IiB5Mj0iMTgiPjwvbGluZT48bGluZSB4MT0iNiIgeTE9IjYiIHgyPSIxOCIgeTI9IjE4Ij48L2xpbmU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         </view>
       </view>
 
@@ -63,7 +63,7 @@
 
     <!-- Active Tags Row -->
     <view v-if="isAnyFilterActive" class="px-4 pb-2 flex flex-row flex-wrap gap-1.5 items-center">
-      <text class="text-[10px] font-semibold text-slate-400 mr-1 uppercase tracking-wider">已筛:</text>
+      <text class="text-[10px] font-semibold text-slate-500 mr-1 uppercase tracking-wider">已筛:</text>
       <text v-if="appliedStage !== 'all'" class="bg-[#00685f]/10 text-[#00685f] text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
         {{ STAGES.find(s => s.id === appliedStage)?.name }}
       </text>
@@ -73,8 +73,8 @@
       <text v-if="appliedSubject !== 'all'" class="bg-[#00685f]/10 text-[#00685f] text-[10px] font-semibold px-2 py-0.5 rounded-full mr-1">
         {{ appliedSubject }}
       </text>
-      <view @click="handleClearAllFilters" class="text-[#00685f] hover:text-[#008378] text-[11px] font-semibold ml-1 underline flex flex-row items-center gap-0.5 cursor-pointer">
-        <view class="text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+      <view @click="handleClearAllFilters" class="text-[#00685f] hover:text-[#008378] text-[11px] font-semibold ml-1 underline flex flex-row items-center gap-0.5 cursor-pointer px-2 py-1">
+        <view class="w-3.5 h-3.5 text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDY4NWYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zIDEyYTkgOSAwIDEgMCA5LTkgOS43NSA5Ljc1IDAgMCAwLTYuNzQgMi43NEwzIDgiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzIDMgMyA4IDggOCI+PC9wb2x5bGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
         <text>重置</text>
       </view>
     </view>
@@ -82,7 +82,7 @@
     <!-- Main Resource Grid -->
     <view v-if="filteredResources.length > 0" class="grid grid-cols-2 gap-3 px-4 py-2">
       <view 
-        v-for="res in filteredResources" 
+        v-for="res in displayedResources" 
         :key="res.id"
         @click="navigateToDetail(res.id)"
         class="group bg-white rounded-xl overflow-hidden border border-slate-200/60 flex flex-col cursor-pointer hover:border-[#00685f]/40 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300"
@@ -141,7 +141,8 @@
       </text>
       <button 
         @click="handleClearAllFilters"
-        class="mt-6 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 hover:bg-[#00685f]/20 px-6 py-2.5 rounded-lg active:scale-95 border-none transition-colors cursor-pointer"
+        class="mt-6 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 hover:bg-[#00685f]/20 px-6 py-2.5 rounded-lg border-none transition-colors cursor-pointer"
+        hover-class="opacity-80 scale-95"
       >
         重置所有条件
       </button>
@@ -273,8 +274,8 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { getFallbackCover } from '../../utils/fallbackCovers'
-import { onShow } from '@dcloudio/uni-app'
 import { request } from '../../utils/request'
+import { onShow, onReachBottom } from '@dcloudio/uni-app'
 
 // Config Data from API
 const STAGES = ref([])
@@ -424,23 +425,25 @@ const availableGrades = computed(() => {
     Object.values(STAGE_GRADES.value).forEach(arr => {
       baseGrades.push(...arr)
     })
+    baseGrades = Array.from(new Set(baseGrades))
   } else {
     baseGrades = [...(STAGE_GRADES.value[tempStage.value] || [])]
   }
 
   if (tempSubject.value !== 'all') {
     const allowedStages = getSubjectStages(tempSubject.value)
-    return baseGrades.filter(g => {
+    baseGrades = baseGrades.filter(g => {
       const gStage = getGradeStage(g)
       return gStage && allowedStages.includes(gStage)
     })
   }
 
-  return baseGrades
+  // Remove confusing redundant '全学段资料' since we already have '全部' button
+  return baseGrades.filter(g => g !== '全学段资料')
 })
 
 const availableSubjects = computed(() => {
-  let baseSubjects = []
+  let baseSubjects;
   if (tempStage.value === 'all') {
     const allSubs = []
     Object.values(STAGE_SUBJECTS.value).forEach(arr => {
@@ -508,11 +511,11 @@ const filteredResources = computed(() => {
   let result = resources.value.filter(r => r.status === 'approved')
 
   if (searchQuery.value.trim() !== '') {
-    const q = searchQuery.value.toLowerCase()
-    result = result.filter(r => 
-      r.title.toLowerCase().includes(q) || 
-      r.subject.toLowerCase().includes(q)
-    )
+    const queries = searchQuery.value.toLowerCase().split(/\s+/).filter(Boolean)
+    result = result.filter(r => {
+      const searchStr = `${r.title} ${r.subject} ${r.grade} ${r.fileType}`.toLowerCase()
+      return queries.every(q => searchStr.includes(q))
+    })
   }
 
   if (activeCategory.value !== '全部') {
@@ -548,6 +551,22 @@ const filteredResources = computed(() => {
   }
 
   return result
+})
+
+const displayCount = ref(20)
+
+watch(filteredResources, () => {
+  displayCount.value = 20
+})
+
+const displayedResources = computed(() => {
+  return filteredResources.value.slice(0, displayCount.value)
+})
+
+onReachBottom(() => {
+  if (displayCount.value < filteredResources.value.length) {
+    displayCount.value += 20
+  }
 })
 
 const navigateToDetail = (id) => {

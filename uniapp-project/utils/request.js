@@ -1,5 +1,7 @@
 const BASE_URL = 'http://localhost:8080/api'; // 之后导出在本地运行时，替换为真实的后端地址
 
+let isNavigatingToLogin = false;
+
 export const request = (options) => {
   return new Promise((resolve, reject) => {
     const token = uni.getStorageSync('token');
@@ -19,10 +21,15 @@ export const request = (options) => {
         if (data && data.code === 200) {
           resolve(data);
         } else if (data && data.code === 401) {
-          uni.showToast({ title: '登录已过期，请重新登录', icon: 'none' });
           uni.removeStorageSync('token');
-          // 跳转到登录页
-          uni.navigateTo({ url: '/pages/login/login' });
+          if (!isNavigatingToLogin) {
+            isNavigatingToLogin = true;
+            uni.showToast({ title: '登录已过期，请重新登录', icon: 'none' });
+            uni.navigateTo({ url: '/pages/login/login' });
+            setTimeout(() => {
+              isNavigatingToLogin = false;
+            }, 2000);
+          }
           reject(data);
         } else {
           uni.showToast({ title: data?.msg || '请求失败', icon: 'none' });
@@ -56,8 +63,15 @@ export const uploadFile = (options) => {
           if (data.code === 200) {
             resolve(data);
           } else if (data.code === 401) {
-            uni.showToast({ title: '登录已过期', icon: 'none' });
-            uni.navigateTo({ url: '/pages/login/login' });
+            uni.removeStorageSync('token');
+            if (!isNavigatingToLogin) {
+              isNavigatingToLogin = true;
+              uni.showToast({ title: '登录已过期', icon: 'none' });
+              uni.navigateTo({ url: '/pages/login/login' });
+              setTimeout(() => {
+                isNavigatingToLogin = false;
+              }, 2000);
+            }
             reject(data);
           } else {
             uni.showToast({ title: data.msg || '上传失败', icon: 'none' });

@@ -13,6 +13,10 @@ export default {
 </script>
 
 <style>
+page, scroll-view {
+  -webkit-overflow-scrolling: touch;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }

@@ -38,7 +38,11 @@
       "postcss": true,
       "minified": true
     },
-    "usingComponents": true
+    "usingComponents": true,
+    "lazyCodeLoading": "requiredComponents",
+    "componentPlaceholder": {
+      "custom-component": "view"
+    }
   },
   "mp-alipay": {
     "usingComponents": true
