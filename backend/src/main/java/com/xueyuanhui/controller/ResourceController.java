@@ -359,4 +359,16 @@ public class ResourceController {
         resourceMapper.updateById(resource);
         return Result.success(resource);
     }
+
+    @Operation(summary = "管理员获取全部用户列表")
+    @GetMapping("/admin/users")
+    public Result<List<User>> getAdminUsers() {
+        String userId = UserContext.getUserId();
+        if (userId == null) return Result.error(401, "请先登录");
+        User user = userMapper.selectById(userId);
+        if (!"admin".equals(user.getRole())) {
+            return Result.error(403, "没有管理员权限");
+        }
+        return Result.success(userMapper.selectList(null));
+    }
 }

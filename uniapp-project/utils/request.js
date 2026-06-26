@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:8080/api'; // 之后导出在本地运行时，替换为真实的后端地址
+ const BASE_URL = 'http://localhost:8080/api'; // 之前的地址（测试完毕后可取消注释改回）
+//const BASE_URL = 'http://192.168.1.219:8080/api'; // 手机局域网测试地址
 
 let isNavigatingToLogin = false;
 
