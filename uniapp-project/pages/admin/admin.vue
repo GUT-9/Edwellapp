@@ -138,13 +138,49 @@
       </view>
     </view>
 
-    <!-- Dev placeholders -->
-    <view v-if="activeTab === 'users' || activeTab === 'settings'" class="px-6 py-20 text-center">
-      <view class="w-16 h-16 bg-white rounded-full flex items-center justify-center border border-slate-100 mb-3 text-slate-400 shadow-sm mx-auto">
-        <view class="text-slate-300 animate-spin-slow" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0xOS40IDE1YTEuNjUgMS42NSAwIDAgMCAuMzMgMS44MmwuMDYuMDZhMiAyIDAgMSAxLTIuODMgMi44M2wtLjA2LS4wNmExLjY1IDEuNjUgMCAwIDAtMS44Mi0uMzMgMS42NSAxLjY1IDAgMCAwLTEgMS41MVYyMWEyIDIgMCAwIDEtNCAwdi0uMDlBMS42NSAxLjY1IDAgMCAwIDkgMTkuNGExLjY1IDEuNjUgMCAwIDAtMS44Mi4zM2wtLjA2LjA2YTIgMiAwIDEgMS0yLjgzLTIuODNsLjA2LS4wNmExLjY1IDEuNjUgMCAwIDAgLjMzLTEuODIgMS42NSAxLjY1IDAgMCAwLTEuNTEtMUgzYTIgMiAwIDAgMSAwLTRoLjA5QTEuNjUgMS42NSAwIDAgMCA0LjYgOWExLjY1IDEuNjUgMCAwIDAtLjMzLTEuODJsLS4wNi0uMDZhMiAyIDAgMSAxIDIuODMtMi44M2wuMDYuMDZhMS42NSAxLjY1IDAgMCAwIDEuODIuMzNIOWExLjY1IDEuNjUgMCAwIDAgMS0xLjUxVjNhMiAyIDAgMCAxIDQgMHYuMDlhMS42NSAxLjY1IDAgMCAwIDEgMS41MSAxLjY1IDEuNjUgMCAwIDAgMS44Mi0uMzNsLjA2LS4wNmEyIDIgMCAxIDEgMi44MyAyLjgzbC0uMDYuMDZhMS42NSAxLjY1IDAgMCAwLS4zMyAxLjgyVjlhMS42NSAxLjY1IDAgMCAwIDEuNTEgMUgyMWEyIDIgMCAwIDEgMCA0aC0uMDlhMS42NSAxLjY1IDAgMCAwLTEuNTEgMXoiPjwvcGF0aD48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+    <!-- Users Tab -->
+    <view v-if="activeTab === 'users'" class="px-4 space-y-3 mt-3">
+      <view v-for="user in usersList" :key="user.id" class="bg-white rounded-2xl border border-slate-200/50 p-4 shadow-sm flex flex-col gap-2">
+        <view class="flex justify-between items-center">
+          <text class="font-sans font-bold text-slate-800">{{ user.username || '微信用户' }} <text class="text-[10px] text-slate-400 font-normal ml-1">({{ user.phone || '未绑定手机' }})</text></text>
+          <text class="text-[10px] px-2 py-0.5 rounded font-bold" :class="user.role === 'admin' ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-500'">{{ user.role === 'admin' ? '管理员' : '普通用户' }}</text>
+        </view>
+        <view class="flex flex-row justify-between text-xs text-slate-500">
+          <text>积分: {{ user.points }}</text>
+          <text>年级: {{ user.grade || '未设置' }}</text>
+        </view>
+        <view class="flex flex-row gap-2 mt-2">
+          <button v-if="user.username !== '15003354256'" @click="deleteUser(user.id)" class="flex-1 py-1.5 text-rose-500 bg-rose-50 rounded-xl text-xs font-semibold border-none">删除</button>
+          <button v-if="user.role !== 'admin'" @click="promoteUser(user.id)" class="flex-1 py-1.5 text-[#00685f] bg-teal-50 rounded-xl text-xs font-semibold border-none">设为管理员</button>
+        </view>
       </view>
-      <text class="font-display text-sm font-bold text-slate-700">模块开发中</text>
-      <text class="block font-sans text-[10px] text-slate-400 mt-1">高级管理配置系统模块已预设前端模板结构，敬请期待后续同步。</text>
+    </view>
+
+    <!-- Settings Tab -->
+    <view v-if="activeTab === 'settings'" class="px-4 space-y-4 mt-3">
+      <view class="bg-white rounded-2xl border border-slate-200/50 p-4 shadow-sm space-y-4">
+        <view class="flex flex-col gap-1.5">
+          <text class="font-sans text-xs font-bold text-slate-700">平台名称</text>
+          <input v-model="settingsData.siteName" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f]" />
+        </view>
+        <view class="flex flex-col gap-1.5">
+          <text class="font-sans text-xs font-bold text-slate-700">欢迎语</text>
+          <textarea v-model="settingsData.welcomeMessage" rows="2" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-sans h-20 focus:border-[#00685f]" />
+        </view>
+        <view class="flex flex-row items-center justify-between py-2 border-b border-slate-100">
+          <text class="font-sans text-xs font-bold text-slate-700">系统维护模式 (关闭前台访问)</text>
+          <switch :checked="settingsData.maintenanceMode" @change="e => settingsData.maintenanceMode = e.detail.value" color="#00685f" style="transform:scale(0.8)"/>
+        </view>
+        <view class="flex flex-row items-center justify-between py-2 border-b border-slate-100">
+          <text class="font-sans text-xs font-bold text-slate-700">允许用户上传资源</text>
+          <switch :checked="settingsData.allowUploads" @change="e => settingsData.allowUploads = e.detail.value" color="#00685f" style="transform:scale(0.8)"/>
+        </view>
+        <view class="flex flex-row items-center justify-between py-2">
+          <text class="font-sans text-xs font-bold text-slate-700">资源上传必须审核</text>
+          <switch :checked="settingsData.reviewRequired" @change="e => settingsData.reviewRequired = e.detail.value" color="#00685f" style="transform:scale(0.8)"/>
+        </view>
+        <button @click="saveSettings" class="w-full py-2.5 rounded-xl bg-[#00685f] text-white font-sans text-sm font-bold shadow-sm mt-4 border-none">保存设置</button>
+      </view>
     </view>
 
     <!-- Reject Reason Input Dialog -->
@@ -196,7 +232,15 @@ const tabs = [
 const activeTab = ref('dashboard')
 const pendingResources = ref([])
 const approvedResourcesCount = ref(0)
+const usersList = ref([])
 const totalUsersCount = ref(0)
+const settingsData = ref({
+  siteName: '',
+  welcomeMessage: '',
+  maintenanceMode: false,
+  allowUploads: true,
+  reviewRequired: true
+})
 
 const isRejectOpen = ref(false)
 const rejectResourceId = ref('')
@@ -231,6 +275,7 @@ const verifyAdminAccess = async () => {
     fetchPendingResources()
     fetchApprovedCount()
     fetchTotalUsers()
+    fetchSettings()
   } catch (err) {
     uni.navigateTo({ url: '/pages/login/login' })
   }
@@ -268,9 +313,60 @@ const fetchTotalUsers = async () => {
       url: '/admin/users',
       method: 'GET'
     })
+    usersList.value = res.data || []
     totalUsersCount.value = res.data.length || 0
   } catch (err) {
     console.error('Failed to fetch total users:', err)
+  }
+}
+
+const deleteUser = async (id) => {
+  uni.showModal({
+    title: '确认删除',
+    content: '此操作不可逆，是否继续？',
+    success: async (r) => {
+      if (r.confirm) {
+        try {
+          uni.showLoading({ title: '删除中...' })
+          await request({ url: `/admin/users/${id}`, method: 'DELETE' })
+          uni.hideLoading()
+          uni.showToast({ title: '删除成功' })
+          fetchTotalUsers()
+        } catch (e) {
+          uni.hideLoading()
+        }
+      }
+    }
+  })
+}
+
+const promoteUser = async (id) => {
+  try {
+    uni.showLoading({ title: '设置中...' })
+    await request({ url: `/admin/users/${id}`, method: 'PUT', data: { role: 'admin' } })
+    uni.hideLoading()
+    uni.showToast({ title: '设置成功', icon: 'success' })
+    fetchTotalUsers()
+  } catch (e) {
+    uni.hideLoading()
+  }
+}
+
+const fetchSettings = async () => {
+  try {
+    const res = await request({ url: '/admin/settings', method: 'GET' })
+    settingsData.value = res.data
+  } catch (e) {}
+}
+
+const saveSettings = async () => {
+  try {
+    uni.showLoading({ title: '保存中...' })
+    await request({ url: '/admin/settings', method: 'PUT', data: settingsData.value })
+    uni.hideLoading()
+    uni.showToast({ title: '保存成功', icon: 'success' })
+  } catch (e) {
+    uni.hideLoading()
   }
 }
 

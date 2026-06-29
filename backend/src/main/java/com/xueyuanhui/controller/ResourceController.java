@@ -275,7 +275,15 @@ public class ResourceController {
         favoriteMapper.delete(new QueryWrapper<Favorite>().eq("resource_id", id));
         downloadRecordMapper.delete(new QueryWrapper<DownloadRecord>().eq("resource_id", id));
         
-        // 删除资源
+        // 从七牛云物理删除文件及封面
+        if (resource.getFileUrl() != null) {
+            qiniuStorageService.deleteFile(resource.getFileUrl());
+        }
+        if (resource.getCoverUrl() != null && !resource.getCoverUrl().contains("vframe/jpg")) {
+            qiniuStorageService.deleteFile(resource.getCoverUrl());
+        }
+
+        // 删除资源记录
         resourceMapper.deleteById(id);
 
         return Result.success("删除成功");
@@ -370,5 +378,54 @@ public class ResourceController {
             return Result.error(403, "没有管理员权限");
         }
         return Result.success(userMapper.selectList(null));
+    }
+
+    @Operation(summary = "管理员删除用户")
+    @DeleteMapping("/admin/users/{id}")
+    @Transactional(rollbackFor = Exception.class)
+    public Result<?> deleteUser(@PathVariable String id) {
+        String adminId = UserContext.getUserId();
+        if (adminId == null) return Result.error(401, "请先登录");
+        User admin = userMapper.selectById(adminId);
+        if (!"admin".equals(admin.getRole())) {
+            return Result.error(403, "没有管理员权限");
+        }
+        if (adminId.equals(id)) {
+            return Result.error(400, "不能删除管理员自己");
+        }
+        
+        User targetUser = userMapper.selectById(id);
+        if (targetUser != null && "15003354256".equals(targetUser.getUsername())) {
+            return Result.error(403, "超级管理员不可被删除");
+        }
+        
+        userMapper.deleteById(id);
+        return Result.success("删除成功");
+    }
+
+    @Operation(summary = "管理员更新用户信息")
+    @PutMapping("/admin/users/{id}")
+    @Transactional(rollbackFor = Exception.class)
+    public Result<?> updateUser(@PathVariable String id, @RequestBody User userData) {
+        String adminId = UserContext.getUserId();
+        if (adminId == null) return Result.error(401, "请先登录");
+        User admin = userMapper.selectById(adminId);
+        if (!"admin".equals(admin.getRole())) {
+            return Result.error(403, "没有管理员权限");
+        }
+
+        User targetUser = userMapper.selectById(id);
+        if (targetUser == null) return Result.error("用户不存在");
+
+        if ("15003354256".equals(targetUser.getUsername()) && userData.getRole() != null && !"admin".equals(userData.getRole())) {
+            return Result.error(403, "不可修改超级管理员身份");
+        }
+
+        if (userData.getPoints() != null) targetUser.setPoints(userData.getPoints());
+        if (userData.getRole() != null) targetUser.setRole(userData.getRole());
+        if (userData.getVipStatus() != null) targetUser.setVipStatus(userData.getVipStatus());
+
+        userMapper.updateById(targetUser);
+        return Result.success("更新成功");
     }
 }

@@ -266,12 +266,22 @@
         </view>
       </view>
     </view>
+
+    <!-- Back to Top Button -->
+    <view 
+      v-if="showBackToTop" 
+      @click="scrollToTop"
+      class="fixed right-5 bottom-20 w-12 h-12 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center cursor-pointer z-[40] transition-all hover:bg-slate-50 active:scale-95"
+    >
+      <view class="text-[#00685f]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBvbHlsaW5lIHBvaW50cz0iMTggMTUgMTIgOSA2IDE1Ij48L3BvbHlsaW5lPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center; width: 24px; height: 24px;"></view>
+    </view>
+
   </view>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import { onShow, onHide, onUnload } from '@dcloudio/uni-app'
+import { onShow, onHide, onUnload, onPageScroll } from '@dcloudio/uni-app'
 import { request, uploadFile } from '../../utils/request'
 
 let parseTimer = null
@@ -311,6 +321,7 @@ const isCopyrightChecked = ref(false)
 const error = ref('')
 const uploadProgress = ref(null)
 const isSuccessOpen = ref(false)
+const showBackToTop = ref(false)
 
 let currentUserId = ''
 
@@ -581,6 +592,17 @@ const handleViewUploads = () => {
   isSuccessOpen.value = false
   uni.switchTab({
     url: '/pages/profile/profile'
+  })
+}
+
+onPageScroll((e) => {
+  showBackToTop.value = e.scrollTop > 300
+})
+
+const scrollToTop = () => {
+  uni.pageScrollTo({
+    scrollTop: 0,
+    duration: 300
   })
 }
 </script>

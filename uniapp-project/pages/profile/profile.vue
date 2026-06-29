@@ -58,10 +58,17 @@
         <view class="flex flex-row gap-2 mt-1">
           <button 
             @click="handleLogout"
-            class="flex-1 font-sans text-xs font-semibold text-slate-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
+            class="flex-1 font-sans text-xs font-semibold text-rose-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
             hover-class="opacity-80 scale-95"
           >
             退出登录
+          </button>
+          <button 
+            @click="isPasswordModalOpen = true"
+            class="flex-1 font-sans text-xs font-semibold text-slate-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
+            hover-class="opacity-80 scale-95"
+          >
+            修改密码
           </button>
           <button 
             v-if="user.role === 'admin'"
@@ -174,6 +181,33 @@
       </view>
 
     </view>
+
+    <!-- Password Modal -->
+    <view v-if="isPasswordModalOpen" class="fixed inset-0 bg-slate-950/45 backdrop-blur-sm z-50 flex items-center justify-center">
+      <view class="bg-white w-80 rounded-2xl shadow-xl p-6 text-center border border-slate-100 flex flex-col items-center mx-4 z-[51]">
+        <text class="font-display text-base font-bold text-slate-800 mb-4">修改密码</text>
+        
+        <view class="w-full flex flex-col gap-3 mb-6">
+          <input type="password" v-model="pwdForm.oldPassword" placeholder="请输入原密码" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
+          <input type="password" v-model="pwdForm.newPassword" placeholder="请输入新密码" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
+        </view>
+
+        <view class="flex gap-3 w-full flex-row">
+          <button 
+            @click="isPasswordModalOpen = false"
+            class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-sans text-xs font-semibold cursor-pointer text-center bg-white border-solid"
+          >
+            取消
+          </button>
+          <button 
+            @click="handleUpdatePassword"
+            class="flex-1 py-2.5 rounded-xl bg-[#00685f] text-white font-sans text-xs font-semibold shadow-sm cursor-pointer text-center border-none"
+          >
+            确认修改
+          </button>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -199,6 +233,9 @@ const activeTab = ref('favorites')
 const allApprovedResources = ref([])
 const myUploadedResources = ref([])
 const displayCount = ref(10)
+
+const isPasswordModalOpen = ref(false)
+const pwdForm = ref({ oldPassword: '', newPassword: '' })
 
 onShow(() => {
   displayCount.value = 10
@@ -341,6 +378,28 @@ const handleLogout = async () => {
       }
     }
   })
+}
+
+const handleUpdatePassword = async () => {
+  if (!pwdForm.value.oldPassword || !pwdForm.value.newPassword) {
+    uni.showToast({ title: '密码不能为空', icon: 'none' })
+    return
+  }
+  try {
+    uni.showLoading({ title: '修改中...' })
+    await request({
+      url: '/user/password',
+      method: 'PUT',
+      data: pwdForm.value
+    })
+    uni.hideLoading()
+    uni.showToast({ title: '密码修改成功', icon: 'success' })
+    isPasswordModalOpen.value = false
+    pwdForm.value = { oldPassword: '', newPassword: '' }
+  } catch (err) {
+    uni.hideLoading()
+    uni.showToast({ title: err?.msg || '修改失败', icon: 'none' })
+  }
 }
 
 const getSubjectClass = (subject) => {

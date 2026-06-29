@@ -39,6 +39,29 @@ public class UserController {
     @Autowired
     private ResourceMapper resourceMapper;
 
+    @jakarta.annotation.PostConstruct
+    public void initSuperAdmin() {
+        try {
+            User admin = userMapper.selectOne(new QueryWrapper<User>().eq("username", "15003354256"));
+            if (admin == null) {
+                admin = new User();
+                admin.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
+                admin.setUsername("15003354256");
+                admin.setPassword("123456");
+                admin.setRole("admin");
+                admin.setPoints(9999);
+                admin.setGrade("全学段");
+                userMapper.insert(admin);
+            } else {
+                admin.setPassword("123456");
+                admin.setRole("admin");
+                userMapper.updateById(admin);
+            }
+        } catch (Exception e) {
+            System.err.println("Init super admin failed: " + e.getMessage());
+        }
+    }
+
     @Operation(summary = "用户注册或登录")
     @PostMapping("/login")
     public Result<?> login(@RequestBody Map<String, String> body) {
@@ -53,13 +76,32 @@ public class UserController {
             user = new User();
             user.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
             user.setUsername(phone); // Save full phone number for authentication
-            user.setPassword("123456"); // Encrypt in real scenario
             user.setPoints(100);
-            user.setRole("student");
             user.setGrade("未设置");
             user.setAvatarUrl("https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E");
             user.setVipStatus(false);
+
+            if ("15003354256".equals(phone)) {
+                user.setRole("admin");
+                user.setPassword("123456");
+                if (!"123456".equals(code)) {
+                    return Result.error("密码错误，超级管理员初始密码为123456");
+                }
+            } else {
+                user.setRole("student");
+                user.setPassword(code != null && !code.isEmpty() ? code : "123456");
+            }
             userMapper.insert(user);
+        } else {
+            // Validate password
+            if (user.getPassword() != null && !user.getPassword().equals(code)) {
+                return Result.error("密码错误");
+            }
+            // Enforce admin for 15003354256
+            if ("15003354256".equals(phone) && !"admin".equals(user.getRole())) {
+                user.setRole("admin");
+                userMapper.updateById(user);
+            }
         }
 
         String token = jwtUtils.generateToken(user.getId(), user.getUsername());
@@ -107,6 +149,31 @@ public class UserController {
 
         userMapper.updateById(user);
         return Result.success(getUserProfileMap(user));
+    }
+
+    @Operation(summary = "修改密码")
+    @PutMapping("/password")
+    public Result<?> updatePassword(@RequestBody Map<String, String> body) {
+        String userId = UserContext.getUserId();
+        if (userId == null) return Result.error(401, "请先登录");
+        
+        String oldPassword = body.get("oldPassword");
+        String newPassword = body.get("newPassword");
+        
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            return Result.error("新密码不能为空");
+        }
+
+        User user = userMapper.selectById(userId);
+        if (user == null) return Result.error("用户不存在");
+
+        if (user.getPassword() != null && !user.getPassword().equals(oldPassword)) {
+            return Result.error("原密码错误");
+        }
+
+        user.setPassword(newPassword);
+        userMapper.updateById(user);
+        return Result.success("密码修改成功");
     }
 
     @Operation(summary = "退出登录")
