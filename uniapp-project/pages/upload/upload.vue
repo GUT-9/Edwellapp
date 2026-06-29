@@ -28,7 +28,7 @@
               type="text"
               v-model="title"
               placeholder="请输入清晰准确的资源标题，如“高二数学期中试卷”"
-              class="w-full px-4 py-3 rounded-xl border border-slate-200 font-sans text-xs text-slate-800 bg-slate-50/20 outline-none transition-all duration-200 focus:border-[#00685f] focus:bg-white focus:ring-[3px] focus:ring-[#00685f]/10"
+              class="w-full h-[44px] box-border px-4 rounded-xl border border-slate-200 font-sans text-xs text-slate-800 bg-slate-50/20 outline-none transition-all duration-200 focus:border-[#00685f] focus:bg-white focus:ring-[3px] focus:ring-[#00685f]/10"
             />
           </view>
 
@@ -59,8 +59,8 @@
             <text class="block font-sans text-xs font-bold text-slate-700 mb-1.5">
               学段 <text class="text-rose-500">*</text>
             </text>
-            <picker @change="onStageChange" :range="stages" range-key="name" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/20 text-slate-800 font-sans text-xs cursor-pointer transition-all duration-200 focus-within:border-[#00685f] focus-within:bg-white focus-within:ring-[3px] focus-within:ring-[#00685f]/10">
-              <view class="flex flex-row justify-between items-center">
+            <picker @change="onStageChange" :range="stages" range-key="name" class="w-full h-[44px] box-border px-4 rounded-xl border border-slate-200 bg-slate-50/20 text-slate-800 font-sans text-xs cursor-pointer transition-all duration-200 focus-within:border-[#00685f] focus-within:bg-white focus-within:ring-[3px] focus-within:ring-[#00685f]/10 flex flex-col justify-center">
+              <view class="flex flex-row justify-between items-center w-full">
                 <text>{{ stageName || '请选择学段' }}</text>
                 <text class="text-slate-400">▼</text>
               </view>
@@ -72,8 +72,8 @@
             <text class="block font-sans text-xs font-bold text-slate-700 mb-1.5">
               年级 <text class="text-rose-500">*</text>
             </text>
-            <picker @change="onGradeChange" :range="availableGrades" :disabled="!stage" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/20 text-slate-800 font-sans text-xs cursor-pointer disabled:bg-slate-100 transition-all duration-200 focus-within:border-[#00685f] focus-within:bg-white focus-within:ring-[3px] focus-within:ring-[#00685f]/10">
-              <view class="flex flex-row justify-between items-center">
+            <picker @change="onGradeChange" :range="availableGrades" :disabled="!stage" class="w-full h-[44px] box-border px-4 rounded-xl border border-slate-200 bg-slate-50/20 text-slate-800 font-sans text-xs cursor-pointer disabled:bg-slate-100 transition-all duration-200 focus-within:border-[#00685f] focus-within:bg-white focus-within:ring-[3px] focus-within:ring-[#00685f]/10 flex flex-col justify-center">
+              <view class="flex flex-row justify-between items-center w-full">
                 <text>{{ grade || (stage ? '请选择年级' : '请先选择学段') }}</text>
                 <text class="text-slate-400">▼</text>
               </view>
@@ -85,8 +85,8 @@
             <text class="block font-sans text-xs font-bold text-slate-700 mb-1.5">
               学科 <text class="text-rose-500">*</text>
             </text>
-            <picker @change="onSubjectChange" :range="availableSubjects" :disabled="!stage" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/20 text-slate-800 font-sans text-xs cursor-pointer disabled:bg-slate-100 transition-all duration-200 focus-within:border-[#00685f] focus-within:bg-white focus-within:ring-[3px] focus-within:ring-[#00685f]/10">
-              <view class="flex flex-row justify-between items-center">
+            <picker @change="onSubjectChange" :range="availableSubjects" :disabled="!stage" class="w-full h-[44px] box-border px-4 rounded-xl border border-slate-200 bg-slate-50/20 text-slate-800 font-sans text-xs cursor-pointer disabled:bg-slate-100 transition-all duration-200 focus-within:border-[#00685f] focus-within:bg-white focus-within:ring-[3px] focus-within:ring-[#00685f]/10 flex flex-col justify-center">
+              <view class="flex flex-row justify-between items-center w-full">
                 <text>{{ subject || (stage ? '请选择学科' : '请先选择学段') }}</text>
                 <text class="text-slate-400">▼</text>
               </view>

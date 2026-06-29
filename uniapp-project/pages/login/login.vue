@@ -67,19 +67,8 @@
           登录 / 注册
         </button>
 
-        <!-- Agreement Checkbox -->
-        <view class="flex items-start gap-2.5 mt-2">
-          <view class="relative flex items-center pt-0.5 shrink-0" @click="toggleAgreement">
-            <view class="w-4 h-4 border border-slate-200 rounded flex items-center justify-center transition-all cursor-pointer" :class="isAgreementChecked ? 'bg-[#00685f] border-[#00685f]' : 'bg-slate-50'">
-              <image v-if="isAgreementChecked" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E" class="w-3 h-3 text-white" style="width: 12px; height: 12px;" mode="aspectFit" />
-            </view>
-          </view>
-          <text 
-            @click="toggleAgreement"
-            class="font-sans text-[11px] text-slate-500 leading-relaxed cursor-pointer"
-          >
-            我已阅读并同意学源汇的 <text class="text-[#00685f]">《用户协议》</text>、<text class="text-[#00685f]">《隐私政策》</text> 及 <text class="text-[#00685f]">《儿童个人信息保护规则》</text>，未注册手机号将自动注册。
-          </text>
+        <view class="mt-2 text-center">
+          <text class="font-sans text-[11px] text-slate-400">未注册手机号将自动注册</text>
         </view>
       </view>
 
@@ -107,7 +96,6 @@ import { request } from '../../utils/request'
 
 const phone = ref('')
 const password = ref('')
-const isAgreementChecked = ref(false)
 const error = ref('')
 
 const handleClose = () => {
@@ -120,9 +108,7 @@ const handleClose = () => {
   })
 }
 
-const toggleAgreement = () => {
-  isAgreementChecked.value = !isAgreementChecked.value
-}
+
 
 const handleSubmit = async () => {
   error.value = ''
@@ -137,10 +123,7 @@ const handleSubmit = async () => {
     return
   }
 
-  if (!isAgreementChecked.value) {
-    error.value = '请勾选并同意《用户协议》与《隐私政策》'
-    return
-  }
+
 
   try {
     uni.showLoading({ title: '正在登录...', mask: true })

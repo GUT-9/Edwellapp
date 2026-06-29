@@ -1,11 +1,8 @@
 spring:
   application:
     name: xueyuanhui-backend
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/xueyuanhui?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    username: root
-    password: root
+  profiles:
+    active: dev
   servlet:
     multipart:
       max-file-size: 100MB
@@ -23,7 +20,7 @@ qiniu:
   access-key: zfc9y0LL6rUe5b6dz0c43yOx7cKOxtHn4bON76rz
   secret-key: yoJYJH0AnqKFFcSVJUONwA-OSxwP4jzFvAlefJwL
   bucket: edwell-k12
-  domain: http://oss.gut9.cn/
+  domain: https://oss.gut9.cn/
 
 jwt:
   secret: XueYuanHuiSuperSecretKeyForJwtAuthenticationWhichShouldBeLongEnough2024

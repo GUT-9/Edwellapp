@@ -51,6 +51,12 @@ public class ResourceController {
     @Autowired
     private QiniuStorageService qiniuStorageService;
 
+    @Operation(summary = "获取七牛云直传Token")
+    @GetMapping("/qiniu/token")
+    public Result<String> getQiniuToken() {
+        return Result.success(qiniuStorageService.getUploadToken());
+    }
+
     @Operation(summary = "文件上传")
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam("file") MultipartFile file) {

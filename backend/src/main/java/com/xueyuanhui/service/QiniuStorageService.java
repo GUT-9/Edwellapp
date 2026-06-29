@@ -25,6 +25,11 @@ public class QiniuStorageService {
     @Value("${qiniu.domain}")
     private String domain;
 
+    public String getUploadToken() {
+        Auth auth = Auth.create(accessKey, secretKey);
+        return auth.uploadToken(bucket);
+    }
+
     public String uploadFile(MultipartFile file) {
         try {
             Configuration cfg = new Configuration(Region.autoRegion());

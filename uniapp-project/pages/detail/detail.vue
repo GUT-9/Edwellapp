@@ -418,48 +418,56 @@ const doDownloadFile = (fileUrl) => {
 
   // #ifdef MP-WEIXIN
   uni.showLoading({ title: '文件下载中...' })
-  uni.downloadFile({
-    url: fileUrl,
-    success: (downloadRes) => {
-      if (downloadRes.statusCode === 200) {
-        uni.hideLoading()
-        // Try to open it with native document viewer if it's a document
-        if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf'].includes(resource.value.fileType.toLowerCase())) {
-          uni.openDocument({
-            filePath: downloadRes.tempFilePath,
-            fileType: resource.value.fileType.toLowerCase(),
-            showMenu: true,
-            success: function () {
-              console.log('打开文档成功')
-            },
-            fail: () => {
-               uni.showModal({ title: '提示', content: '暂不支持直接预览该类型，文件已保存。' })
-            }
-          })
-        } else if (['mp4', 'avi'].includes(resource.value.fileType.toLowerCase())) {
-           uni.saveVideoToPhotosAlbum({
-              filePath: downloadRes.tempFilePath,
-              success: function () {
-                  uni.showToast({ title: '已保存至相册', icon: 'success' })
-              }
-           })
-        } else {
-          uni.showToast({ title: '下载完成，请在本地查找', icon: 'success' })
-        }
-      }
-    },
-    fail: () => {
-      uni.hideLoading()
-      uni.showModal({
-        title: '下载失败',
-        content: '文件可能过大或网络异常，已为您复制链接。',
-        showCancel: false,
-        success: () => {
-          uni.setClipboardData({ data: fileUrl })
-        }
+  
+  const handleDownloadSuccess = (tempFilePath) => {
+    uni.hideLoading()
+    if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf'].includes(resource.value.fileType.toLowerCase())) {
+      uni.openDocument({
+        filePath: tempFilePath,
+        fileType: resource.value.fileType.toLowerCase(),
+        showMenu: true,
+        success: function () { console.log('打开文档成功') },
+        fail: () => { uni.showModal({ title: '提示', content: '暂不支持直接预览该类型，文件已保存。' }) }
       })
+    } else if (['mp4', 'avi'].includes(resource.value.fileType.toLowerCase())) {
+       uni.saveVideoToPhotosAlbum({
+          filePath: tempFilePath,
+          success: function () { uni.showToast({ title: '已保存至相册', icon: 'success' }) }
+       })
+    } else {
+      uni.showToast({ title: '下载完成，请在本地查找', icon: 'success' })
     }
-  })
+  };
+
+  const handleDownloadFail = () => {
+    uni.hideLoading()
+    uni.showModal({
+      title: '下载失败',
+      content: '文件可能过大或网络异常，已为您复制链接。',
+      showCancel: false,
+      success: () => { uni.setClipboardData({ data: fileUrl }) }
+    })
+  };
+
+  if (fileUrl.startsWith('cloud://') && typeof wx !== 'undefined' && wx.cloud) {
+    wx.cloud.downloadFile({
+      fileID: fileUrl,
+      success: res => {
+        if (res.statusCode === 200) handleDownloadSuccess(res.tempFilePath)
+        else handleDownloadFail()
+      },
+      fail: handleDownloadFail
+    })
+  } else {
+    uni.downloadFile({
+      url: fileUrl,
+      success: (res) => {
+        if (res.statusCode === 200) handleDownloadSuccess(res.tempFilePath)
+        else handleDownloadFail()
+      },
+      fail: handleDownloadFail
+    })
+  }
   // #endif
 }
 

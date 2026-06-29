@@ -5,12 +5,29 @@
       <view class="bg-white rounded-2xl border border-slate-200/50 p-5 flex flex-col gap-4 shadow-sm">
         <!-- User main info -->
         <view class="flex flex-row items-center gap-4">
-          <view class="w-16 h-16 rounded-full overflow-hidden border-2 border-slate-100 shrink-0 shadow-inner">
+          <!-- #ifdef MP-WEIXIN -->
+          <button 
+            open-type="chooseAvatar" 
+            @chooseavatar="onChooseAvatar"
+            class="w-16 h-16 rounded-full overflow-hidden border-2 border-slate-100 shrink-0 shadow-inner p-0 m-0 bg-transparent after:border-none"
+          >
+            <image 
+              :src="user.avatarUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E'" 
+              class="w-full h-full object-cover"
+            />
+          </button>
+          <!-- #endif -->
+          <!-- #ifndef MP-WEIXIN -->
+          <view 
+            @click="onChooseImage"
+            class="w-16 h-16 rounded-full overflow-hidden border-2 border-slate-100 shrink-0 shadow-inner p-0 m-0 bg-transparent cursor-pointer"
+          >
             <image 
               :src="user.avatarUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E'" 
               class="w-full h-full object-cover"
             />
           </view>
+          <!-- #endif -->
           
           <view class="flex flex-col gap-1 flex-1">
             <view class="flex flex-row items-center gap-1.5 flex-wrap">
@@ -215,7 +232,7 @@
 import { ref, computed } from 'vue'
 import { onShow, onReachBottom } from '@dcloudio/uni-app'
 import { getFallbackCover } from '../../utils/fallbackCovers'
-import { request } from '../../utils/request'
+import { request, uploadFile } from '../../utils/request'
 
 const grades = ref([])
 
@@ -330,6 +347,48 @@ const onGradePickerChange = async (e) => {
     uni.hideLoading()
     uni.showToast({ title: err?.msg || '修改失败', icon: 'none' })
   }
+}
+
+const updateAvatar = async (tempFilePath) => {
+  try {
+    uni.showLoading({ title: '上传头像中...' })
+    const uploadRes = await uploadFile({
+      url: '/upload',
+      filePath: tempFilePath,
+      name: 'file'
+    })
+    const finalCoverUrl = uploadRes.data
+    
+    const res = await request({
+      url: '/user/profile',
+      method: 'PUT',
+      data: { avatarUrl: finalCoverUrl }
+    })
+    uni.hideLoading()
+    user.value = res.data
+    uni.setStorageSync('user', JSON.stringify(res.data))
+    uni.showToast({ title: '头像修改成功', icon: 'success' })
+  } catch (err) {
+    uni.hideLoading()
+    uni.showToast({ title: '头像上传失败', icon: 'none' })
+  }
+}
+
+const onChooseAvatar = (e) => {
+  const avatarUrl = e.detail.avatarUrl
+  if (avatarUrl) {
+    updateAvatar(avatarUrl)
+  }
+}
+
+const onChooseImage = () => {
+  uni.chooseImage({
+    count: 1,
+    success: (res) => {
+      const tempPath = res.tempFilePaths[0]
+      updateAvatar(tempPath)
+    }
+  })
 }
 
 const showRejectReason = (reason) => {

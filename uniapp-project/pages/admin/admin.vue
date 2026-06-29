@@ -142,7 +142,7 @@
     <view v-if="activeTab === 'users'" class="px-4 space-y-3 mt-3">
       <view v-for="user in usersList" :key="user.id" class="bg-white rounded-2xl border border-slate-200/50 p-4 shadow-sm flex flex-col gap-2">
         <view class="flex justify-between items-center">
-          <text class="font-sans font-bold text-slate-800">{{ user.username || '微信用户' }} <text class="text-[10px] text-slate-400 font-normal ml-1">({{ user.phone || '未绑定手机' }})</text></text>
+          <text class="font-sans font-bold text-slate-800">{{ user.username || '微信用户' }}</text>
           <text class="text-[10px] px-2 py-0.5 rounded font-bold" :class="user.role === 'admin' ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-500'">{{ user.role === 'admin' ? '管理员' : '普通用户' }}</text>
         </view>
         <view class="flex flex-row justify-between text-xs text-slate-500">
