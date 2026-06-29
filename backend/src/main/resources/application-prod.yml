@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.35.107.234:3306/xueyuanhui?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    # 请确保下方填写你在云托管设置的真实 MySQL 密码
+    password: Emcchv72
