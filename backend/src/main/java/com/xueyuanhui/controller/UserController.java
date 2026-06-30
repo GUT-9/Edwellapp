@@ -11,6 +11,7 @@ import com.xueyuanhui.mapper.ResourceMapper;
 import com.xueyuanhui.common.UserContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,9 @@ public class UserController {
     private FavoriteMapper favoriteMapper;
 
     @Autowired
+    private com.xueyuanhui.service.QiniuStorageService qiniuStorageService;
+
+    @Autowired
     private DownloadRecordMapper downloadRecordMapper;
 
     @Autowired
@@ -42,11 +46,12 @@ public class UserController {
     @jakarta.annotation.PostConstruct
     public void initSuperAdmin() {
         try {
-            User admin = userMapper.selectOne(new QueryWrapper<User>().eq("username", "15003354256"));
+            User admin = userMapper.selectOne(new QueryWrapper<User>().eq("phone", "15003354256").last("limit 1"));
             if (admin == null) {
                 admin = new User();
                 admin.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
-                admin.setUsername("15003354256");
+                admin.setUsername("超级管理员");
+                admin.setPhone("15003354256");
                 admin.setPassword("123456");
                 admin.setRole("admin");
                 admin.setPoints(9999);
@@ -62,46 +67,75 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "用户注册或登录")
+    @Operation(summary = "手机号密码登录或注册")
     @PostMapping("/login")
     public Result<?> login(@RequestBody Map<String, String> body) {
         String phone = body.get("phone");
-        String code = body.get("code"); // Simplified validation
+        String code = body.get("code"); // Password
         if (phone == null || phone.isEmpty()) {
             return Result.error("手机号不能为空");
         }
 
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq("username", phone));
+        // Using backwards compatibility for old data where phone was saved in username
+        User user = userMapper.selectOne(new QueryWrapper<User>().and(w -> w.eq("phone", phone).or().eq("username", phone)).last("limit 1"));
         if (user == null) {
             user = new User();
             user.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
-            user.setUsername(phone); // Save full phone number for authentication
+            user.setPhone(phone);
+            user.setUsername("用户_" + phone.substring(7));
             user.setPoints(100);
             user.setGrade("未设置");
             user.setAvatarUrl("https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E");
             user.setVipStatus(false);
-
-            if ("15003354256".equals(phone)) {
-                user.setRole("admin");
-                user.setPassword("123456");
-                if (!"123456".equals(code)) {
-                    return Result.error("密码错误，超级管理员初始密码为123456");
-                }
-            } else {
-                user.setRole("student");
-                user.setPassword(code != null && !code.isEmpty() ? code : "123456");
-            }
+            user.setRole("student");
+            user.setPassword(code != null && !code.isEmpty() ? code : "123456");
             userMapper.insert(user);
         } else {
-            // Validate password
+            // Check password
             if (user.getPassword() != null && !user.getPassword().equals(code)) {
                 return Result.error("密码错误");
             }
-            // Enforce admin for 15003354256
-            if ("15003354256".equals(phone) && !"admin".equals(user.getRole())) {
-                user.setRole("admin");
+            if (user.getPhone() == null) {
+                user.setPhone(phone); // migrate old user
                 userMapper.updateById(user);
             }
+        }
+
+        String token = jwtUtils.generateToken(user.getId(), user.getUsername());
+        Map<String, Object> res = new HashMap<>();
+        res.put("token", token);
+        res.put("user", getUserProfileMap(user));
+        return Result.success(res);
+    }
+
+    @Operation(summary = "微信一键登录(免手机号)")
+    @PostMapping("/wx-login")
+    public Result<?> wxLogin(HttpServletRequest request, @RequestBody Map<String, String> body) {
+        // 微信云托管会自动在 Header 中注入 X-WX-OPENID
+        String openid = request.getHeader("x-wx-openid");
+        
+        // 如果本地调试没有 Header，允许前端传入测试 openid
+        if (openid == null || openid.isEmpty()) {
+            openid = body.get("openid");
+        }
+
+        if (openid == null || openid.isEmpty()) {
+            return Result.error("未获取到微信OpenID，请确保在微信云托管环境运行或传入测试ID");
+        }
+
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("openid", openid).last("limit 1"));
+        if (user == null) {
+            user = new User();
+            user.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
+            user.setOpenid(openid);
+            user.setUsername("微信用户_" + openid.substring(0, 4));
+            user.setPoints(100);
+            user.setGrade("未设置");
+            user.setAvatarUrl("https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E");
+            user.setVipStatus(false);
+            user.setRole("student");
+            user.setPassword(""); // WeChat users don't need a password, but DB requires it
+            userMapper.insert(user);
         }
 
         String token = jwtUtils.generateToken(user.getId(), user.getUsername());
@@ -137,14 +171,24 @@ public class UserController {
             return Result.error("用户不存在");
         }
 
-        if (body.containsKey("username")) {
+        if (body.containsKey("username") && !body.get("username").trim().isEmpty()) {
             user.setUsername(body.get("username"));
         }
         if (body.containsKey("grade")) {
             user.setGrade(body.get("grade"));
         }
         if (body.containsKey("avatarUrl")) {
+            String oldAvatar = user.getAvatarUrl();
             user.setAvatarUrl(body.get("avatarUrl"));
+            // Delete old avatar from Qiniu
+            if (oldAvatar != null && oldAvatar.contains("oss.gut9.cn") && !oldAvatar.contains("googleusercontent.com")) {
+                try {
+                    qiniuStorageService.deleteFile(oldAvatar);
+                } catch (Exception e) {}
+            }
+        }
+        if (body.containsKey("phone") && !body.get("phone").trim().isEmpty()) {
+            user.setPhone(body.get("phone"));
         }
 
         userMapper.updateById(user);
@@ -167,7 +211,7 @@ public class UserController {
         User user = userMapper.selectById(userId);
         if (user == null) return Result.error("用户不存在");
 
-        if (user.getPassword() != null && !user.getPassword().equals(oldPassword)) {
+        if (user.getPassword() != null && !user.getPassword().isEmpty() && !user.getPassword().equals(oldPassword)) {
             return Result.error("原密码错误");
         }
 
@@ -184,14 +228,15 @@ public class UserController {
 
     private Map<String, Object> getUserProfileMap(User user) {
         Map<String, Object> map = new HashMap<>();
-        String rawPhone = user.getUsername();
-        String maskedPhone = rawPhone;
-        if (rawPhone != null && rawPhone.length() == 11) {
+        String rawPhone = user.getPhone() != null ? user.getPhone() : user.getUsername();
+        String maskedPhone = null;
+        if (rawPhone != null && rawPhone.matches("\\d{11}")) {
             maskedPhone = rawPhone.substring(0, 3) + "****" + rawPhone.substring(7);
         }
         
         map.put("id", user.getId());
-        map.put("name", maskedPhone); // Map masked phone to frontend 'name'
+        map.put("name", user.getUsername() != null ? user.getUsername() : (maskedPhone != null ? maskedPhone : "微信用户"));
+        map.put("username", user.getUsername());
         map.put("phone", maskedPhone);
         map.put("avatarUrl", user.getAvatarUrl());
         map.put("points", user.getPoints());

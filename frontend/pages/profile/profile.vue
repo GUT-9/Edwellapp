@@ -1,7 +1,17 @@
 <template>
   <view class="flex-1 bg-slate-50/50 min-h-screen pb-24">
-    <!-- Profile Header section -->
-    <view class="p-4 mt-4">
+    <!-- Not Logged In State -->
+    <view v-if="!user.id" class="flex flex-col items-center justify-center pt-32 px-4 h-full">
+      <view class="w-24 h-24 bg-slate-200 rounded-full mb-6 flex items-center justify-center opacity-50 shrink-0 mx-auto" style="width: 96px; height: 96px; min-width: 96px; min-height: 96px;">
+        <view class="w-10 h-10 shrink-0 text-slate-400" style="width: 40px; height: 40px; min-width: 40px; min-height: 40px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+      </view>
+      <text class="text-slate-500 font-sans text-sm mb-6">您还未登录，请先登录以查看个人主页</text>
+      <button @click="goToLogin" class="bg-[#00685f] text-white font-sans text-sm font-semibold rounded-xl shadow-sm border-none flex items-center justify-center" style="padding: 12px 40px; line-height: 1.5; margin: 0 auto;">去登录 / 注册</button>
+    </view>
+
+    <template v-else>
+      <!-- Profile Header section -->
+      <view class="p-4 mt-4">
       <view class="bg-white rounded-2xl border border-slate-200/50 p-5 flex flex-col gap-4 shadow-sm">
         <!-- User main info -->
         <view class="flex flex-row items-center gap-4">
@@ -9,11 +19,13 @@
           <button 
             open-type="chooseAvatar" 
             @chooseavatar="onChooseAvatar"
-            class="w-16 h-16 rounded-full overflow-hidden border-2 border-slate-100 shrink-0 shadow-inner p-0 m-0 bg-transparent after:border-none"
+            class="w-16 h-16 rounded-full overflow-hidden border-2 border-slate-100 shrink-0 shadow-inner bg-transparent after:border-none flex items-center justify-center box-border"
+            style="width: 64px; height: 64px; min-width: 64px; min-height: 64px; padding: 0; margin: 0; line-height: 1;"
           >
             <image 
               :src="user.avatarUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E'" 
               class="w-full h-full object-cover"
+              mode="aspectFill"
             />
           </button>
           <!-- #endif -->
@@ -25,6 +37,7 @@
             <image 
               :src="user.avatarUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E'" 
               class="w-full h-full object-cover"
+              mode="aspectFill"
             />
           </view>
           <!-- #endif -->
@@ -76,13 +89,23 @@
           <button 
             @click="handleLogout"
             class="flex-1 font-sans text-xs font-semibold text-rose-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
+            style="padding-left: 0; padding-right: 0;"
             hover-class="opacity-80 scale-95"
           >
             退出登录
           </button>
           <button 
+            @click="isEditModalOpen = true; editForm = { username: user.username || user.name || '', phone: user.phone || '' }"
+            class="flex-1 font-sans text-xs font-semibold text-slate-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
+            style="padding-left: 0; padding-right: 0;"
+            hover-class="opacity-80 scale-95"
+          >
+            编辑资料
+          </button>
+          <button 
             @click="isPasswordModalOpen = true"
             class="flex-1 font-sans text-xs font-semibold text-slate-500 bg-white py-2 border border-slate-200 rounded-lg shadow-sm text-center border-solid m-0"
+            style="padding-left: 0; padding-right: 0;"
             hover-class="opacity-80 scale-95"
           >
             修改密码
@@ -90,7 +113,8 @@
           <button 
             v-if="user.role === 'admin'"
             @click="goToAdmin"
-            class="flex-1 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 py-2 border border-[#00685f]/20 rounded-lg shadow-sm text-center border-solid m-0"
+            class="flex-1 font-sans text-xs font-semibold text-[#00685f] bg-[#00685f]/10 py-2 border border-[#00685f]/20 rounded-lg shadow-sm text-center border-solid m-0 flex items-center justify-center"
+            style="padding-left: 0; padding-right: 0;"
             hover-class="opacity-80 scale-95"
           >
             进入管理员后台
@@ -205,7 +229,7 @@
         <text class="font-display text-base font-bold text-slate-800 mb-4">修改密码</text>
         
         <view class="w-full flex flex-col gap-3 mb-6">
-          <input type="password" v-model="pwdForm.oldPassword" placeholder="请输入原密码" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
+          <input type="password" v-model="pwdForm.oldPassword" placeholder="请输入原密码(微信首次设置可留空)" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
           <input type="password" v-model="pwdForm.newPassword" placeholder="请输入新密码" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
         </view>
 
@@ -225,6 +249,28 @@
         </view>
       </view>
     </view>
+
+    <!-- Edit Profile Modal -->
+    <view v-if="isEditModalOpen" class="fixed inset-0 bg-slate-950/45 backdrop-blur-sm z-50 flex items-center justify-center">
+      <view class="bg-white w-80 rounded-2xl shadow-xl p-6 text-center border border-slate-100 flex flex-col items-center mx-4 z-[51]">
+        <text class="font-display text-base font-bold text-slate-800 mb-4">编辑资料</text>
+        
+        <view class="w-full flex flex-col gap-3 mb-6 text-left">
+          <text class="font-sans text-xs font-semibold text-slate-600 pl-1">用户名</text>
+          <input type="text" v-model="editForm.username" placeholder="请输入用户名" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
+          
+          <text class="font-sans text-xs font-semibold text-slate-600 pl-1 mt-2">手机号 (选填)</text>
+          <input type="number" v-model="editForm.phone" placeholder="请输入手机号" class="w-full box-border bg-slate-50 border border-slate-200 rounded-lg px-3 h-10 leading-[40px] text-xs font-sans focus:border-[#00685f] outline-none" />
+        </view>
+
+        <view class="flex gap-3 w-full flex-row">
+          <button @click="isEditModalOpen = false" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-sans text-xs font-semibold cursor-pointer text-center bg-white border-solid">取消</button>
+          <button @click="handleUpdateProfile" class="flex-1 py-2.5 rounded-xl bg-[#00685f] text-white font-sans text-xs font-semibold shadow-sm cursor-pointer text-center border-none">保存</button>
+        </view>
+      </view>
+    </view>
+    
+    </template>
   </view>
 </template>
 
@@ -254,6 +300,15 @@ const displayCount = ref(10)
 const isPasswordModalOpen = ref(false)
 const pwdForm = ref({ oldPassword: '', newPassword: '' })
 
+const isEditModalOpen = ref(false)
+const editForm = ref({ username: '', phone: '' })
+
+const goToLogin = () => {
+  uni.navigateTo({
+    url: '/pages/login/login'
+  })
+}
+
 onShow(() => {
   displayCount.value = 10
   fetchUserProfile()
@@ -282,9 +337,7 @@ const fetchGrades = async () => {
 const fetchUserProfile = async () => {
   const token = uni.getStorageSync('token')
   if (!token) {
-    uni.navigateTo({
-      url: '/pages/login/login'
-    })
+    user.value = {}
     return
   }
 
@@ -297,9 +350,7 @@ const fetchUserProfile = async () => {
     uni.setStorageSync('user', JSON.stringify(res.data))
   } catch (err) {
     if (err?.code === 401) {
-      uni.navigateTo({
-        url: '/pages/login/login'
-      })
+      user.value = {}
     }
   }
 }
@@ -440,8 +491,8 @@ const handleLogout = async () => {
 }
 
 const handleUpdatePassword = async () => {
-  if (!pwdForm.value.oldPassword || !pwdForm.value.newPassword) {
-    uni.showToast({ title: '密码不能为空', icon: 'none' })
+  if (!pwdForm.value.newPassword) {
+    uni.showToast({ title: '新密码不能为空', icon: 'none' })
     return
   }
   try {
@@ -458,6 +509,28 @@ const handleUpdatePassword = async () => {
   } catch (err) {
     uni.hideLoading()
     uni.showToast({ title: err?.msg || '修改失败', icon: 'none' })
+  }
+}
+
+const handleUpdateProfile = async () => {
+  try {
+    uni.showLoading({ title: '保存中...' })
+    const res = await request({
+      url: '/user/profile',
+      method: 'PUT',
+      data: {
+        username: editForm.value.username,
+        phone: editForm.value.phone
+      }
+    })
+    uni.hideLoading()
+    user.value = res.data
+    uni.setStorageSync('user', JSON.stringify(res.data))
+    uni.showToast({ title: '保存成功', icon: 'success' })
+    isEditModalOpen.value = false
+  } catch (err) {
+    uni.hideLoading()
+    uni.showToast({ title: err?.msg || '保存失败', icon: 'none' })
   }
 }
 

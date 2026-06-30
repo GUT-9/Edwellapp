@@ -93,11 +93,14 @@ export const uploadFile = (options) => {
   return new Promise(async (resolve, reject) => {
     try {
       // 1. 先向后端请求七牛云直传 Token
-      const tokenRes = await request({ url: '/resource/qiniu/token', method: 'GET' });
+      const tokenRes = await request({ url: '/qiniu/token', method: 'GET' });
       const uploadToken = tokenRes.data;
 
       // 2. 将文件直接上传到七牛云 (不经过后端，完美绕过微信白名单中的后端域名限制)
-      const ext = options.filePath.split('.').pop();
+      let ext = options.filePath.includes('.') ? options.filePath.split('.').pop().toLowerCase() : 'jpg';
+      if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4', 'pdf', 'doc', 'docx', 'ppt', 'pptx'].includes(ext)) {
+        ext = 'jpg';
+      }
       const fileName = `edwell/${Date.now()}-${Math.random().toString(36).substring(2)}.${ext}`;
 
       uni.uploadFile({

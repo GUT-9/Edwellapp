@@ -165,5 +165,9 @@ INSERT INTO `user` VALUES ('u-admin-1','13800000000','123456','https://api.diceb
 UNLOCK TABLES;
 
 
-
 -- Dump completed on 2026-06-29 11:29:00
+ALTER TABLE user ADD COLUMN phone VARCHAR(20) DEFAULT NULL COMMENT '手机号';
+ALTER TABLE user ADD COLUMN openid VARCHAR(64) DEFAULT NULL COMMENT '微信openid';
+ALTER TABLE user ADD UNIQUE KEY `idx_phone` (`phone`);
+ALTER TABLE user ADD UNIQUE KEY `idx_openid` (`openid`);
+

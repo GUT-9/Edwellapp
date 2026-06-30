@@ -164,11 +164,34 @@ const handleSubmit = async () => {
   }
 }
 
-const handleWeChatLogin = () => {
-  uni.showToast({
-    title: '微信一键登录暂未开放',
-    icon: 'none'
-  })
+const handleWeChatLogin = async () => {
+  try {
+    uni.showLoading({ title: '授权登录中...', mask: true })
+    const res = await request({
+      url: '/user/wx-login',
+      method: 'POST',
+      data: {
+        openid: 'test_openid_' + Math.floor(Math.random() * 10000) // Fallback for local testing
+      }
+    })
+    
+    uni.hideLoading()
+    uni.setStorageSync('token', res.data.token)
+    uni.setStorageSync('user', JSON.stringify(res.data.user))
+    uni.showToast({ title: '登录成功', icon: 'success' })
+
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/profile/profile',
+        fail: () => {
+          uni.reLaunch({ url: '/pages/profile/profile' })
+        }
+      })
+    }, 1000)
+  } catch (err) {
+    uni.hideLoading()
+    error.value = err?.msg || '微信登录失败'
+  }
 }
 </script>
 
