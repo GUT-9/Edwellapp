@@ -1,27 +1,5 @@
 <template>
   <view class="flex-1 flex flex-col bg-slate-50 min-h-screen pb-32">
-    <!-- Sub-page Header -->
-    <view class="sticky top-0 z-40 bg-white/90 backdrop-blur-md w-full box-border h-14 flex flex-row items-center justify-between px-4 border-b border-slate-100 shrink-0 mt-8">
-      <view 
-        @click="handleBack"
-        class="p-2 -ml-2 rounded-full hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-all cursor-pointer"
-      >
-        <view class="text-slate-700" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGxpbmUgeDE9IjE5IiB5MT0iMTIiIHgyPSI1IiB5Mj0iMTIiPjwvbGluZT48cG9seWxpbmUgcG9pbnRzPSIxMiAxOSA1IDEyIDEyIDUiPjwvcG9seWxpbmU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
-      </view>
-      <text class="font-display text-sm font-bold text-slate-800 truncate flex-1 text-center">
-        资源详情
-      </text>
-      <view class="w-8 flex items-center justify-center">
-        <view 
-          v-if="resource && user && (user.role === 'admin' || user.id === resource.authorId)"
-          @click="confirmDelete"
-          class="p-2 -mr-2 rounded-full hover:bg-rose-50 transition-all cursor-pointer"
-        >
-          <view class="text-rose-500 w-5 h-5" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjQzZjVlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTMgNmgyYTEgMSAwIDAgMCAxLTFoMTJhMSAxIDAgMCAwIDEtMWgybS00IDB2MTRhMiAyIDAgMCAxLTIgMkgyYTIgMiAwIDAgMS0yLTJWNmgyem01IDV2OG00LTh2OG00LTh2OCIvPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
-        </view>
-      </view>
-    </view>
-
     <view v-if="resource" class="flex-1 flex flex-col">
       <!-- Preview Area -->
       <view class="w-full aspect-video bg-slate-900 relative overflow-hidden flex items-center justify-center">
@@ -46,19 +24,28 @@
             class="absolute inset-0 m-auto w-16 h-16 bg-white/25 hover:bg-white/35 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-all duration-300 cursor-pointer"
             hover-class="opacity-80 scale-95"
           >
-            <view class="fill-current text-white ml-1" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWdvbiBwb2ludHM9IjUgMyAxOSAxMiA1IDIxIDUgMyI+PC9wb2x5Z29uPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+            <view class="fill-current text-white ml-1 shrink-0" style="width: 28px; height: 28px; min-width: 28px; min-height: 28px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWdvbiBwb2ludHM9IjUgMyAxOSAxMiA1IDIxIDUgMyI+PC9wb2x5Z29uPjwvc3ZnPg=='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
 
           <!-- Document Icon Overlay if Document -->
           <view v-else
             class="absolute inset-0 m-auto w-16 h-16 bg-black/40 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white shadow-lg"
           >
-            <view class="text-white" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQgMkg2YTIgMiAwIDAgMC0yIDJ2MTZhMiAyIDAgMCAwIDIgMmgxMmEyIDIgMCAwIDAgMi0yVjh6Ij48L3BhdGg+PHBvbHlsaW5lIHBvaW50cz0iMTQgMiAxNCA4IDIwIDgiPjwvcG9seWxpbmU+PGxpbmUgeDE9IjE2IiB5MT0iMTMiIHgyPSI4IiB5Mj0iMTMiPjwvbGluZT48bGluZSB4MT0iMTYiIHkxPSIxNyIgeDI9IjgiIHkyPSIxNyI+PC9saW5lPjxwb2x5bGluZSBwb2ludHM9IjEwIDkgOSA5IDggOSI+PC9wb2x5bGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+            <view class="text-white shrink-0" style="width: 32px; height: 32px; min-width: 32px; min-height: 32px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQgMkg2YTIgMiAwIDAgMC0yIDJ2MTZhMiAyIDAgMCAwIDIgMmgxMmEyIDIgMCAwIDAgMi0yVjh6Ij48L3BhdGg+PHBvbHlsaW5lIHBvaW50cz0iMTQgMiAxNCA4IDIwIDgiPjwvcG9seWxpbmU+PGxpbmUgeDE9IjE2IiB5MT0iMTMiIHgyPSI4IiB5Mj0iMTMiPjwvbGluZT48bGluZSB4MT0iMTYiIHkxPSIxNyIgeDI9IjgiIHkyPSIxNyI+PC9saW5lPjxwb2x5bGluZSBwb2ludHM9IjEwIDkgOSA5IDggOSI+PC9wb2x5bGluZT48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+          </view>
+          
+          <!-- Delete Button Overlay -->
+          <view 
+            v-if="resource && user && (user.role === 'admin' || user.id === resource.authorId)"
+            @click.stop="confirmDelete"
+            class="absolute top-4 right-4 z-20 w-8 h-8 bg-rose-500/90 hover:bg-rose-600 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg transition-all cursor-pointer"
+          >
+            <view class="text-white shrink-0" style="width: 16px; height: 16px; min-width: 16px; min-height: 16px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik00IDdoMTYiIC8+PHBhdGggZD0iTTEwIDExdjYiIC8+PHBhdGggZD0iTTE0IDExdjYiIC8+PHBhdGggZD0iTTUgN2wxIDEyYTIgMiAwIDAgMCAyIDJoOGEyIDIgMCAwIDAgMi0ybDEtMTIiIC8+PHBhdGggZD0iTTkgN2wtMS00aDhhMiAyIDAgMCAxIDIgMmwtMSAyaC04eiIgLz48L3N2Zz4='); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
           </view>
           
           <!-- Format Badge -->
-          <view class="absolute top-4 right-4 px-2 py-1 bg-black/70 backdrop-blur text-white text-[10px] font-bold tracking-wider rounded uppercase flex flex-row items-center gap-1 shadow-md">
-            <view class="text-white" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xNCAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWOHoiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIxNCAyIDE0IDggMjAgOCI+PC9wb2x5bGluZT48bGluZSB4MT0iMTYiIHkxPSIxMyIgeDI9IjgiIHkyPSIxMyI+PC9saW5lPjxsaW5lIHgxPSIxNiIgeTE9IjE3IiB4Mj0iOCIgeTI9IjE3Ij48L2xpbmU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
+          <view class="absolute top-4 left-4 z-10 px-2 py-1 bg-black/70 backdrop-blur text-white text-[10px] font-bold tracking-wider rounded uppercase flex flex-row items-center gap-1 shadow-md">
+            <view class="text-white shrink-0" style="width: 12px; height: 12px; min-width: 12px; min-height: 12px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xNCAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWOHoiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIxNCAyIDE0IDggMjAgOCI+PC9wb2x5bGluZT48bGluZSB4MT0iMTYiIHkxPSIxMyIgeDI9IjgiIHkyPSIxMyI+PC9saW5lPjxsaW5lIHgxPSIxNiIgeTE9IjE3IiB4Mj0iOCIgeTI9IjE3Ij48L2xpbmU+PC9zdmc+'); background-size: contain; background-repeat: no-repeat; background-position: center;"></view>
             <text>{{ resource.fileType }}</text>
           </view>
         </view>
