@@ -128,7 +128,7 @@ public class UserController {
             user = new User();
             user.setId("u" + UUID.randomUUID().toString().replace("-", "").substring(0, 10));
             user.setOpenid(openid);
-            user.setUsername("微信用户_" + openid.substring(0, 4));
+            user.setUsername("微信用户_" + user.getId().substring(1, 7));
             user.setPoints(100);
             user.setGrade("未设置");
             user.setAvatarUrl("https://lh3.googleusercontent.com/aida-public/AB6AXuARBMS77J_hxhMvEqhR7sTZKQMjeBuw40YkG5q9ugL1HBLZLcNh9XHPp-vgDWCFHaKBxluJ5bzT0-w5tFx07YaXQcXskcXcWmIYGooiMejXd-XJjUDnoVBDyC984acbWwHOGsEJPf9q82JunHFY6VqpMiH-B1hbwpQev5jvtlVuG_wAykFoGG2CH-Cr3m-R9kaQsRaRDfysK4WlhH2xrlem8_jsBn_UsEjSFDkf-t4d7T2bMKE1tBRf0M9LjYrTN8UCkSot4LLqo8E");

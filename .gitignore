@@ -17,3 +17,11 @@ target/
 .idea/
 *.iml
 .vscode/
+
+# Local development helper files & mock servers
+*.cjs
+server.ts
+resources.json
+metadata.json
+mysql-data/
+*.sql
